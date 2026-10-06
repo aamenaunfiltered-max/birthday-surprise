@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,7 +20,7 @@
     rel="stylesheet"
   >
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -167,7 +168,7 @@
       loop
     >
       <source
-        src="music/a-thousand-years.mp3"
+        src="./music/a-thousand-years.mp3"
         type="audio/mpeg"
       >
     </audio>
@@ -642,12 +643,12 @@
 
         <div class="coke-poster">
 
-          <!-- FIXED IMAGE PATH -->
           <img
-            src="images/diet-coke-universe.png"
+            src="./images/diet-coke-universe.png"
             alt="Diet Coke universe poster with a chilled Diet Coke can surrounded by blue orbit rings and birthday-themed notes"
             loading="eager"
             decoding="async"
+            onerror="console.error('Diet Coke image failed to load:', this.src)"
           >
 
           <button
@@ -750,13 +751,13 @@
 
         <div class="memory-photo-wrap">
 
-          <!-- FIXED IMAGE PATH -->
           <img
             id="memoryPhoto"
-            src="images/memory-01.jpg"
+            src="./images/memory-01.jpg"
             alt="Memory 1 of us"
             loading="eager"
             decoding="async"
+            onerror="console.error('Memory image failed to load:', this.src)"
           >
 
         </div>
@@ -980,11 +981,6 @@
       </div>
 
 
-      <!--
-        JavaScript automatically inserts
-        memory-11.jpg through memory-51.jpg here.
-      -->
-
       <div
         class="scrapbook"
         id="scrapbook"
@@ -1145,14 +1141,14 @@
       </p>
 
 
-      <!-- FIXED IMAGE PATH -->
       <div class="final-photo">
 
         <img
-          src="images/favorite-photo.jpg"
+          src="./images/favorite-photo.jpg"
           alt="Another favourite memory of us"
           loading="eager"
           decoding="async"
+          onerror="console.error('Final photo failed to load:', this.src)"
         >
 
       </div>
@@ -1192,7 +1188,8 @@
        JAVASCRIPT
   ====================================================== -->
 
-  <script src="script.js"></script>
+  <script src="./script.js"></script>
 
 </body>
 </html>
+```
