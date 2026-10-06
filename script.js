@@ -143,56 +143,300 @@ const cokeMessages=['Correct answer: Diet Coke.','This is not a drink anymore. T
 function tapCoke(){cokeClicks++;document.getElementById('cokeCount').textContent=String(cokeClicks).padStart(2,'0');document.getElementById('cokeMessage').textContent=cokeMessages[Math.min(cokeClicks-1,cokeMessages.length-1)];document.getElementById('cokeCan').classList.add('tapped');setTimeout(()=>document.getElementById('cokeCan').classList.remove('tapped'),220);if(cokeClicks>=5){document.getElementById('cokeFinal').classList.remove('hidden');confetti(20)}}
 document.getElementById('cokeCan').addEventListener('click',tapCoke);
 
-const memoryPhotos=Array.from({length:10},(_,i)=>`memory-${String(i+1).padStart(2,'0')}.jpg`);
-const memoryAnswers=Array(10).fill('');
-let memoryIndex=0;
-const memoryPhoto=document.getElementById('memoryPhoto');
-const memoryAnswer=document.getElementById('memoryAnswer');
-const memoryProgress=document.getElementById('memoryProgress');
-const memoryBar=document.getElementById('memoryBar');
-const memoryNext=document.getElementById('memoryNext');
-const memoryFinish=document.getElementById('memoryFinish');
-const memoryForm=document.getElementById('memoryForm');
-const memoryContinue=document.getElementById('memoryContinue');
-function renderMemory(){
-  memoryPhoto.src=`images/all/${memoryPhotos[memoryIndex]}`;
-  memoryPhoto.alt=`Memory ${memoryIndex+1} of us`;
-  memoryProgress.textContent=`MEMORY ${String(memoryIndex+1).padStart(2,'0')} / 10`;
-  memoryBar.style.width=((memoryIndex+1)*10)+'%';
-  memoryAnswer.value=memoryAnswers[memoryIndex]||'';
-  memoryAnswer.focus({preventScroll:true});
+/* =========================================================
+   PHOTO SYSTEM
+========================================================= */
+
+const IMAGE_PATH = 'images/all/';
+
+/*
+   ALL 51 PHOTOS
+   Make sure your files are named:
+
+   memory-01.jpg
+   memory-02.jpg
+   memory-03.jpg
+   ...
+   memory-51.jpg
+*/
+
+const ALL_PHOTOS = Array.from(
+  { length: 51 },
+  (_, i) => `memory-${String(i + 1).padStart(2, '0')}.jpg`
+);
+
+
+/* =========================================================
+   MEMORY LANE
+   Uses photos 01 - 10
+========================================================= */
+
+const memoryPhotos = ALL_PHOTOS.slice(0, 10);
+
+const memoryAnswers = Array(10).fill('');
+
+let memoryIndex = 0;
+
+const memoryPhoto =
+  document.getElementById('memoryPhoto');
+
+const memoryAnswer =
+  document.getElementById('memoryAnswer');
+
+const memoryProgress =
+  document.getElementById('memoryProgress');
+
+const memoryBar =
+  document.getElementById('memoryBar');
+
+const memoryNext =
+  document.getElementById('memoryNext');
+
+const memoryFinish =
+  document.getElementById('memoryFinish');
+
+const memoryForm =
+  document.getElementById('memoryForm');
+
+const memoryContinue =
+  document.getElementById('memoryContinue');
+
+
+function renderMemory() {
+
+  const filename =
+    memoryPhotos[memoryIndex];
+
+  memoryPhoto.src =
+    IMAGE_PATH + filename;
+
+  memoryPhoto.alt =
+    `Memory ${memoryIndex + 1} of us`;
+
+  memoryProgress.textContent =
+    `MEMORY ${String(memoryIndex + 1).padStart(2, '0')} / 10`;
+
+  memoryBar.style.width =
+    `${(memoryIndex + 1) * 10}%`;
+
+  memoryAnswer.value =
+    memoryAnswers[memoryIndex] || '';
+
+  memoryPhoto.classList.remove(
+    'image-missing'
+  );
 }
-memoryAnswer?.addEventListener('input',()=>{memoryAnswers[memoryIndex]=memoryAnswer.value;localStorage.setItem('birthdayMemoryAnswers',JSON.stringify(memoryAnswers));});
-memoryNext?.addEventListener('click',()=>{
-  memoryAnswers[memoryIndex]=memoryAnswer.value.trim();
-  localStorage.setItem('birthdayMemoryAnswers',JSON.stringify(memoryAnswers));
-  if(memoryIndex<9){memoryIndex++;renderMemory();window.scrollTo({top:document.querySelector('.memory-lane-chapter').offsetTop+120,behavior:'smooth'});}
-  else{
-    for(let i=0;i<10;i++){const field=document.getElementById(`memory${String(i+1).padStart(2,'0')}Field`);field.value=memoryAnswers[i]||'(left blank)';}
-    document.querySelector('.memory-card').classList.add('hidden');
-    memoryFinish.classList.remove('hidden');
-    memoryContinue.classList.remove('hidden');
-    confetti(30);
+
+
+/* Show an error if a photo filename is wrong */
+
+memoryPhoto?.addEventListener(
+  'error',
+  () => {
+
+    console.error(
+      'Could not load:',
+      memoryPhoto.src
+    );
+
+    showToast(
+      `Memory ${memoryIndex + 1} image could not be loaded.`
+    );
   }
-});
-memoryForm?.addEventListener('submit',(e)=>{
-  if(location.protocol==='file:'){
-    e.preventDefault();
-    showToast('Memory Lane will send your answers once the website is live on GitHub Pages. ♡');
-    return;
+);
+
+
+/* Save the answer */
+
+memoryAnswer?.addEventListener(
+  'input',
+  () => {
+
+    memoryAnswers[memoryIndex] =
+      memoryAnswer.value;
+
+    localStorage.setItem(
+      'birthdayMemoryAnswers',
+      JSON.stringify(memoryAnswers)
+    );
   }
-  for(let i=0;i<10;i++){document.getElementById(`memory${String(i+1).padStart(2,'0')}Field`).value=memoryAnswers[i]||'(left blank)';}
-});
-memoryContinue?.addEventListener('click',()=>goToChapter(7));
-const scrapbook=document.getElementById('scrapbook');
-const scrapbookPhotos=Array.from({length:41},(_,i)=>i+11);
-scrapbookPhotos.forEach((num,i)=>{
-  const card=document.createElement('figure');
-  card.className='scrap-card';
-  card.style.setProperty('--tilt',`${(i%5-2)*1.4}deg`);
-  card.innerHTML=`<img src="images/all/memory-${String(num).padStart(2,'0')}.jpg" alt="Memory ${num} of us" loading="lazy"><figcaption>${['one of those days','still laughing','just us','another little moment','proof we were here'][i%5]} · ${String(num).padStart(2,'0')}</figcaption>`;
-  scrapbook.appendChild(card);
-});
+);
+
+
+/* Next memory */
+
+memoryNext?.addEventListener(
+  'click',
+  () => {
+
+    memoryAnswers[memoryIndex] =
+      memoryAnswer.value.trim();
+
+    localStorage.setItem(
+      'birthdayMemoryAnswers',
+      JSON.stringify(memoryAnswers)
+    );
+
+
+    if (memoryIndex < 9) {
+
+      memoryIndex++;
+
+      renderMemory();
+
+      window.scrollTo({
+        top:
+          document.querySelector(
+            '.memory-lane-chapter'
+          ).offsetTop + 120,
+
+        behavior: 'smooth'
+      });
+
+    } else {
+
+      /* Put answers into the final form */
+
+      for (let i = 0; i < 10; i++) {
+
+        const field =
+          document.getElementById(
+            `memory${String(i + 1).padStart(2, '0')}Field`
+          );
+
+        if (field) {
+          field.value =
+            memoryAnswers[i] ||
+            '(left blank)';
+        }
+      }
+
+      document
+        .querySelector('.memory-card')
+        ?.classList.add('hidden');
+
+      memoryFinish?.classList.remove(
+        'hidden'
+      );
+
+      memoryContinue?.classList.remove(
+        'hidden'
+      );
+
+      confetti(30);
+    }
+  }
+);
+
+
+/* Memory Lane form */
+
+memoryForm?.addEventListener(
+  'submit',
+  (e) => {
+
+    if (location.protocol === 'file:') {
+
+      e.preventDefault();
+
+      showToast(
+        'Memory Lane will send your answers once the website is live on GitHub Pages. ♡'
+      );
+
+      return;
+    }
+
+    for (let i = 0; i < 10; i++) {
+
+      const field =
+        document.getElementById(
+          `memory${String(i + 1).padStart(2, '0')}Field`
+        );
+
+      if (field) {
+        field.value =
+          memoryAnswers[i] ||
+          '(left blank)';
+      }
+    }
+  }
+);
+
+
+memoryContinue?.addEventListener(
+  'click',
+  () => goToChapter(7)
+);
+
+
+/* =========================================================
+   SCRAPBOOK
+   Uses photos 11 - 51
+========================================================= */
+
+const scrapbook =
+  document.getElementById('scrapbook');
+
+const scrapbookPhotos =
+  ALL_PHOTOS.slice(10);
+
+
+/* Create scrapbook photos */
+
+scrapbookPhotos.forEach(
+  (filename, index) => {
+
+    const card =
+      document.createElement('figure');
+
+    card.className =
+      'scrap-card';
+
+    card.style.setProperty(
+      '--tilt',
+      `${(index % 5 - 2) * 1.4}deg`
+    );
+
+
+    const img =
+      document.createElement('img');
+
+    img.src =
+      IMAGE_PATH + filename;
+
+    img.alt =
+      `Memory ${index + 11} of us`;
+
+    img.loading = 'lazy';
+
+
+    const captions = [
+      'one of those days',
+      'still laughing',
+      'just us',
+      'another little moment',
+      'proof we were here'
+    ];
+
+
+    const caption =
+      document.createElement('figcaption');
+
+    caption.textContent =
+      `${captions[index % captions.length]} · ${String(index + 11).padStart(2, '0')}`;
+
+
+    card.appendChild(img);
+
+    card.appendChild(caption);
+
+    scrapbook.appendChild(card);
+  }
+);
+
+
+/* Start Memory Lane */
+
 renderMemory();
 
 function confetti(count=30){for(let i=0;i<count;i++){const c=document.createElement('span');c.className='confetti-piece';c.style.left=(Math.random()*100)+'vw';c.style.animationDelay=(Math.random()*.5)+'s';c.style.transform=`rotate(${Math.random()*180}deg)`;c.style.background=['#4c7cff','#081426','#a9c7ff','#ffffff'][Math.floor(Math.random()*4)];document.body.appendChild(c);setTimeout(()=>c.remove(),3500)}}
