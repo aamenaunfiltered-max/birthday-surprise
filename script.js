@@ -147,7 +147,7 @@ document.getElementById('cokeCan').addEventListener('click',tapCoke);
    PHOTO SYSTEM
 ========================================================= */
 
-const IMAGE_PATH = 'images/all/';
+const IMAGE_PATH = 'images/';
 
 /*
    ALL 51 PHOTOS
