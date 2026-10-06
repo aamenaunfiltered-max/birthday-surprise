@@ -1,42 +1,4 @@
 /* =========================================================
-   CINEMATIC OPENING
-========================================================= */
-
-const cinematicIntro =
-  document.getElementById('cinematicIntro');
-
-function finishCinematicIntro(){
-
-  if(!cinematicIntro) return;
-
-  cinematicIntro.classList.add('intro-finished');
-
-  setTimeout(() => {
-
-    cinematicIntro.remove();
-
-  },1500);
-
-}
-
-/*
-  The opening gets enough time for:
-  ∞ to appear
-  first line to appear
-  second line to appear
-  then the whole screen fades away.
-*/
-if(cinematicIntro){
-
-  setTimeout(
-    finishCinematicIntro,
-    6200
-  );
-
-}
-
-
-/* =========================================================
    CORE
 ========================================================= */
 
