@@ -797,412 +797,390 @@ renderQuestion();
 ========================================================= */
 
 let gameRunning=false;
-let score=0;
-let timeLeft=20;
-let spawnTimer;
-let gameTimer;
+let gameScore=0;
+let gameLevel=0;
+let gameTimeLeft=15;
+let gameSpawnTimer=null;
+let gameTimer=null;
+let levelEnding=false;
+let finalInfinitySpawned=false;
 
 const game =
-  document.getElementById(
-    'catchGame'
-  );
+  document.getElementById('catchGame');
 
 const player =
-  document.getElementById(
-    'player'
-  );
+  document.getElementById('player');
 
+const levels=[
+  {time:15,spawn:700,speed:[2.15,2.9],name:'EASY'},
+  {time:15,spawn:560,speed:[1.8,2.55],name:'DATE MODE'},
+  {time:15,spawn:440,speed:[1.5,2.2],name:'RELATIONSHIP MODE'},
+  {time:15,spawn:340,speed:[1.15,1.8],name:'SURVIVE US'}
+];
+
+const goodItems=[
+  ['❤️',1,'Heart'],
+  ['🥤',2,'Diet Coke'],
+  ['🍔',2,'MCD'],
+  ['🍜',2,'MOGO Ramen'],
+  ['🌸',3,'Flower'],
+  ['∞',5,'Infinity']
+];
+
+const badItems=[
+  ['💼',-2,'Work'],
+  ['🥦',-1,'Healthy Food'],
+  ['😤',-3,'My Attitude'],
+  ['📱',-5,'We Need To Talk']
+];
 
 function setPlayer(x){
+  if(!game || !player){return;}
 
-  const rect =
-    game.getBoundingClientRect();
-
-  const half=32;
-
-  const px =
-    Math.max(
-      half,
-      Math.min(
-        rect.width-half,
-        x
-      )
-    );
-
-  player.style.left =
-    px+'px';
-
+  const rect=game.getBoundingClientRect();
+  const half=35;
+  const px=Math.max(half,Math.min(rect.width-half,x));
+  player.style.left=px+'px';
 }
-
 
 function movePlayer(clientX){
-
-  const rect =
-    game.getBoundingClientRect();
-
-  setPlayer(
-    clientX-rect.left
-  );
-
+  if(!game){return;}
+  const rect=game.getBoundingClientRect();
+  setPlayer(clientX-rect.left);
 }
 
+if(game){
+  game.addEventListener('pointermove',e=>{
+    if(gameRunning){movePlayer(e.clientX);}
+  });
 
-game.addEventListener(
-  'pointermove',
-  e => {
-
-    if(gameRunning){
-
-      movePlayer(
-        e.clientX
-      );
-
-    }
-
-  }
-);
-
-
-function startGame(){
-
-  if(gameRunning){
-    return;
-  }
-
-  gameRunning=true;
-
-  score=0;
-
-  timeLeft=20;
-
-  document.getElementById(
-    'gameScore'
-  ).textContent='0';
-
-  document.getElementById(
-    'gameTime'
-  ).textContent='20';
-
-  document.getElementById(
-    'gameOverlay'
-  ).classList.add(
-    'hidden'
-  );
-
-  document.getElementById(
-    'gameResult'
-  ).textContent =
-    'Catch everything good. ♡';
-
-  spawnTimer =
-    setInterval(
-      spawnItem,
-      480
-    );
-
-  gameTimer =
-    setInterval(
-      () => {
-
-        timeLeft--;
-
-        document.getElementById(
-          'gameTime'
-        ).textContent =
-          timeLeft;
-
-        if(timeLeft<=0){
-          endGame();
-        }
-
-      },
-      1000
-    );
-
+  game.addEventListener('pointerdown',e=>{
+    if(gameRunning){movePlayer(e.clientX);}
+  });
 }
 
+function updateGameHud(){
+  document.getElementById('gameLevel').textContent=
+    String(gameLevel+1).padStart(2,'0');
 
-document
-  .getElementById('startGame')
-  .addEventListener(
-    'click',
-    startGame
-  );
+  document.getElementById('gameScore').textContent=gameScore;
+  document.getElementById('gameTime').textContent=gameTimeLeft;
+}
 
+function showGameToast(text){
+  const result=document.getElementById('gameResult');
+  if(result){result.innerHTML=text;}
+}
 
-function spawnItem(){
+function clearGameTimers(){
+  clearInterval(gameSpawnTimer);
+  clearInterval(gameTimer);
+  gameSpawnTimer=null;
+  gameTimer=null;
+}
 
-  if(!gameRunning){
-    return;
-  }
+function clearFallingItems(){
+  document.querySelectorAll('#catchGame .falling').forEach(el=>el.remove());
+}
 
-  const el =
-    document.createElement(
-      'div'
-    );
+function chooseItem(){
+  const badChance=Math.min(.18 + gameLevel*.08,.42);
+  const useBad=Math.random()<badChance;
+  const source=useBad ? badItems : goodItems;
+  const item=source[Math.floor(Math.random()*source.length)];
+  return {
+    symbol:item[0],
+    points:item[1],
+    name:item[2],
+    bad:useBad
+  };
+}
+
+function spawnItem(forcedItem=null){
+  if(!gameRunning || !game || levelEnding){return;}
+
+  const item=forcedItem || chooseItem();
+  const el=document.createElement('div');
 
   el.className='falling';
+  el.dataset.points=item.points;
+  el.dataset.kind=item.bad?'bad':'good';
+  el.dataset.name=item.name;
+  el.textContent=item.symbol;
+  el.style.left=(4+Math.random()*90)+'%';
 
-  const types=[
-    ['♡',10],
-    ['💋',20],
-    ['🍔',15],
-    ['🥤',25],
-    ['🎂',50],
-    ['💔',-15]
-  ];
-
-  const [
-    symbol,
-    points
-  ] =
-    types[
-      Math.floor(
-        Math.random()*types.length
-      )
-    ];
-
-  el.textContent=symbol;
-
-  el.dataset.points=points;
-
-  el.style.left =
-    (5+Math.random()*88)+'%';
-
-  el.style.animationDuration =
-    (1.6+Math.random()*1.2)+'s';
+  const current=levels[gameLevel];
+  const min=current.speed[0];
+  const max=current.speed[1];
+  const duration=min+Math.random()*(max-min);
+  el.style.animationDuration=duration+'s';
 
   game.appendChild(el);
 
-  const tick =
-    setInterval(
-      () => {
+  const tick=setInterval(()=>{
+    if(!el.isConnected){clearInterval(tick);return;}
 
-        const a =
-          el.getBoundingClientRect();
+    const a=el.getBoundingClientRect();
+    const b=player.getBoundingClientRect();
 
-        const b =
-          player.getBoundingClientRect();
+    if(
+      a.bottom>=b.top &&
+      a.left<b.right &&
+      a.right>b.left
+    ){
+      const points=Number(el.dataset.points);
+      gameScore+=points;
+      updateGameHud();
 
-        if(
-          a.bottom>=b.top &&
-          a.left<b.right &&
-          a.right>b.left
-        ){
-
-          score =
-            Math.max(
-              0,
-              score+
-              Number(el.dataset.points)
-            );
-
-          document.getElementById(
-            'gameScore'
-          ).textContent =
-            score;
-
-          el.remove();
-
-          clearInterval(tick);
-
-        }
-
-      },
-      40
-    );
-
-  setTimeout(
-    () => {
+      if(points>0){
+        el.classList.add('caught-good');
+        showGameToast(`<small>+${points} · ${el.dataset.name}</small>`);
+        burstHearts(points>=3?5:2);
+      }else{
+        el.classList.add('caught-bad');
+        showGameToast(`<small>${points} · ${el.dataset.name}</small>`);
+      }
 
       clearInterval(tick);
-
       el.remove();
+    }
+  },35);
 
-    },
-    3200
-  );
-
+  setTimeout(()=>{
+    clearInterval(tick);
+    el.remove();
+  },Math.max(duration*1000+600,1200));
 }
 
+function startLevel(){
+  levelEnding=false;
+  gameTimeLeft=levels[gameLevel].time;
+  updateGameHud();
 
-function endGame(){
+  showGameToast(`<small>LEVEL ${String(gameLevel+1).padStart(2,'0')} · ${levels[gameLevel].name}</small>`);
+
+  gameSpawnTimer=setInterval(()=>spawnItem(),levels[gameLevel].spawn);
+
+  gameTimer=setInterval(()=>{
+    gameTimeLeft--;
+    updateGameHud();
+
+    if(gameTimeLeft<=0){
+      finishLevel();
+    }
+  },1000);
+}
+
+function finishLevel(){
+  if(levelEnding){return;}
+
+  levelEnding=true;
+  clearGameTimers();
+  clearFallingItems();
+
+  if(gameLevel<levels.length-1){
+    showGameToast(
+      `<small>LEVEL ${String(gameLevel+1).padStart(2,'0')} CLEARED. Next: ${levels[gameLevel+1].name}.</small>`
+    );
+
+    setTimeout(()=>{
+      if(!gameRunning){return;}
+      gameLevel++;
+      startLevel();
+    },850);
+
+    return;
+  }
+
+  spawnFinalInfinity();
+}
+
+function spawnFinalInfinity(){
+  if(finalInfinitySpawned){return;}
+
+  finalInfinitySpawned=true;
+  levelEnding=true;
+  clearGameTimers();
+  clearFallingItems();
+
+  const infinity={
+    symbol:'∞',
+    points:5,
+    name:'Infinity',
+    bad:false
+  };
+
+  const el=document.createElement('div');
+  el.className='falling final-infinity-item';
+  el.dataset.points='5';
+  el.dataset.kind='final';
+  el.dataset.name='Infinity';
+  el.textContent='∞';
+  el.style.left='50%';
+  el.style.animationDuration='2.8s';
+  game.appendChild(el);
+
+  showGameToast('<small>FINAL CHALLENGE · CATCH THE ∞</small>');
+
+  const tick=setInterval(()=>{
+    if(!el.isConnected){clearInterval(tick);return;}
+
+    const a=el.getBoundingClientRect();
+    const b=player.getBoundingClientRect();
+
+    if(
+      a.bottom>=b.top &&
+      a.left<b.right &&
+      a.right>b.left
+    ){
+      clearInterval(tick);
+      el.remove();
+      gameScore+=infinity.points;
+      updateGameHud();
+      finishGame(true);
+    }
+  },35);
+
+  setTimeout(()=>{
+    clearInterval(tick);
+    if(el.isConnected){el.remove();}
+
+    // The infinity is guaranteed again if the first fall is missed.
+    if(gameRunning){
+      finalInfinitySpawned=false;
+      spawnFinalInfinity();
+    }
+  },3400);
+}
+
+function startGame(){
+  if(gameRunning){return;}
+
+  gameRunning=true;
+  gameScore=0;
+  gameLevel=0;
+  gameTimeLeft=levels[0].time;
+  finalInfinitySpawned=false;
+  levelEnding=false;
+
+  clearGameTimers();
+  clearFallingItems();
+  updateGameHud();
+
+  document.getElementById('gameOverlay').classList.add('hidden');
+  document.getElementById('continueAfterGame').classList.add('hidden');
+
+  startLevel();
+}
+
+function finishGame(caughtInfinity=false){
+  if(!gameRunning){return;}
 
   gameRunning=false;
+  clearGameTimers();
+  clearFallingItems();
 
-  clearInterval(
-    spawnTimer
-  );
+  const oldBest=Number(localStorage.getItem('birthdayBest')||0);
+  const best=Math.max(oldBest,gameScore);
+  localStorage.setItem('birthdayBest',best);
+  document.getElementById('bestScore').textContent=best;
 
-  clearInterval(
-    gameTimer
-  );
+  const overlay=document.getElementById('gameOverlay');
+  const title=document.getElementById('gameOverlayTitle');
+  const text=document.getElementById('gameOverlayText');
+  const start=document.getElementById('startGame');
 
-  document
-    .querySelectorAll('.falling')
-    .forEach(
-      x => x.remove()
-    );
+  if(caughtInfinity){
+    title.textContent='YOU CAUGHT IT.';
+    text.textContent='Just like you caught my heart. ♡';
+    showGameToast(`<small>FINAL SCORE · ${gameScore}</small>`);
+    confetti(55);
+    burstHearts(24);
+  }else{
+    title.textContent='CHAOS COMPLETE.';
+    text.textContent=`You survived all four levels with ${gameScore} points. ♡`;
+  }
 
-  const best =
-    Math.max(
-      Number(
-        localStorage.getItem(
-          'birthdayBest'
-        ) || 0
-      ),
-      score
-    );
-
-  localStorage.setItem(
-    'birthdayBest',
-    best
-  );
-
-  document.getElementById(
-    'bestScore'
-  ).textContent =
-    best;
-
-  document.getElementById(
-    'gameResult'
-  ).textContent =
-    score>=150
-      ? `SCORE ${score}. Okay, heart thief. 😭♡`
-      : score>=80
-        ? `SCORE ${score}. Respectable birthday-boy behaviour. ♡`
-        : `SCORE ${score}. We are blaming the broken hearts. 😂`;
-
-  document
-    .getElementById(
-      'gameOverlay'
-    )
-    .classList.remove(
-      'hidden'
-    );
-
-  document.getElementById(
-    'startGame'
-  ).textContent =
-    'PLAY AGAIN ♡';
-
-  document
-    .getElementById(
-      'continueAfterGame'
-    )
-    .classList.remove(
-      'hidden'
-    );
-
-  confetti(35);
-
+  start.textContent='PLAY AGAIN ♡';
+  overlay.classList.remove('hidden');
+  document.getElementById('continueAfterGame').classList.remove('hidden');
 }
 
+document.getElementById('bestScore').textContent=
+  localStorage.getItem('birthdayBest')||0;
 
-document.getElementById(
-  'bestScore'
-).textContent =
-  localStorage.getItem(
-    'birthdayBest'
-  ) || 0;
+document.getElementById('startGame').addEventListener('click',startGame);
 
-
-document
-  .getElementById(
-    'continueAfterGame'
-  )
-  .addEventListener(
-    'click',
-    () => goToChapter(5)
-  );
+document.getElementById('continueAfterGame').addEventListener(
+  'click',
+  () => goToChapter(5)
+);
 
 
 /* =========================================================
-   DIET COKE
+   THE WAY I SEE YOU
 ========================================================= */
 
-const cokeMessages=[
-
-  'Correct answer: Diet Coke.',
-
-  'This is not a drink anymore. This is relationship lore. 🥤',
-
-  'MCD without Diet Coke? Unacceptable.',
-
-  'You may have your Diet Coke. I will continue being your favourite. 👀',
-
-  'Okay. You are officially Diet Coke certified.'
-
+const seeYouLines=[
+  ['✦','I notice the tiny things you think nobody notices.'],
+  ['♡','I notice how you can make me laugh when I am trying very hard to stay mad.'],
+  ['∞','I notice how random plans with you somehow become days I remember forever.'],
+  ['✧','I notice how ordinary places become special just because we are there together.'],
+  ['♡','I notice the softness underneath all the roasting, rage baiting and stupid jokes.'],
+  ['∞','And I notice that, after everything, my heart still looks for you.']
 ];
 
-let cokeClicks=0;
+let seeYouIndex=0;
 
+const seeYouText=document.getElementById('seeYouText');
+const seeYouSymbol=document.getElementById('seeYouSymbol');
+const seeYouNumber=document.getElementById('seeYouNumber');
+const seeYouProgressBar=document.getElementById('seeYouProgressBar');
+const seeYouNext=document.getElementById('seeYouNext');
+const seeYouFinal=document.getElementById('seeYouFinal');
+const seeYouContinue=document.getElementById('seeYouContinue');
 
-function tapCoke(){
+function renderSeeYou(){
+  const item=seeYouLines[seeYouIndex];
 
-  cokeClicks++;
+  seeYouNumber.textContent=String(seeYouIndex+1).padStart(2,'0');
+  seeYouSymbol.textContent=item[0];
+  seeYouText.textContent=item[1];
+  seeYouProgressBar.style.width=`${((seeYouIndex+1)/seeYouLines.length)*100}%`;
 
-  document.getElementById(
-    'cokeCount'
-  ).textContent =
-    String(cokeClicks).padStart(
-      2,
-      '0'
-    );
-
-  document.getElementById(
-    'cokeMessage'
-  ).textContent =
-    cokeMessages[
-      Math.min(
-        cokeClicks-1,
-        cokeMessages.length-1
-      )
-    ];
-
-  document.getElementById(
-    'cokeCan'
-  ).classList.add(
-    'tapped'
+  document.querySelector('.see-you-card')?.classList.remove('see-you-card-pulse');
+  requestAnimationFrame(()=>
+    document.querySelector('.see-you-card')?.classList.add('see-you-card-pulse')
   );
 
-  setTimeout(
-    () =>
-      document
-        .getElementById(
-          'cokeCan'
-        )
-        .classList.remove(
-          'tapped'
-        ),
-    220
-  );
-
-  if(cokeClicks>=5){
-
-    document
-      .getElementById(
-        'cokeFinal'
-      )
-      .classList.remove(
-        'hidden'
-      );
-
-    confetti(20);
-
+  if(seeYouIndex===seeYouLines.length-1){
+    seeYouNext.textContent='SEE WHAT I MEAN ♡';
+  }else{
+    seeYouNext.textContent='SHOW ME ANOTHER ♡';
   }
-
 }
 
+seeYouNext.addEventListener('click',()=>{
+  if(seeYouIndex<seeYouLines.length-1){
+    seeYouIndex++;
+    renderSeeYou();
+    return;
+  }
 
-document
-  .getElementById('cokeCan')
-  .addEventListener(
-    'click',
-    tapCoke
-  );
+  seeYouNext.classList.add('hidden');
+  seeYouFinal.classList.remove('hidden');
+  seeYouContinue.classList.remove('hidden');
+  burstHearts(18);
+  confetti(24);
+});
+
+seeYouContinue.addEventListener('click',()=>goToChapter(6));
+renderSeeYou();
 
 
+/* =========================================================
+   PHOTO SYSTEM
+========================================================= */
 /* =========================================================
    PHOTO SYSTEM
 ========================================================= */
