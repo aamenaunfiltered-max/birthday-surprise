@@ -348,7 +348,7 @@ button{font:inherit}
 .story-chapter h2 span{color:var(--blue2)}
 .story-intro{width:min(650px,100%);color:#b9c8dd;line-height:1.75;font-size:1rem;margin:0 auto 45px;position:relative;z-index:2}
 .story-map{width:min(1050px,100%);position:relative;display:grid;grid-template-columns:repeat(12,1fr);gap:22px;margin:5px auto 40px;z-index:2}
-.story-card{position:relative;min-height:280px;padding:27px;border-radius:28px;background:rgba(255,255,255,.055);border:1px solid rgba(169,199,255,.17);box-shadow:0 20px 55px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.06);text-align:left;backdrop-filter:blur(10px);overflow:hidden;transition:transform .3s ease,border-color .3s ease,background .3s ease,box-shadow .3s ease}
+.story-card{position:relative;min-height:280px;padding:27px;border-radius:28px;background:rgba(255,255,255,.055);border:1px solid rgba(169,199,255,.17);box-shadow:0 20px 55px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.06);text-align:left;backdrop-filter:blur(10px);overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;transition:transform .3s ease,border-color .3s ease,background .3s ease,box-shadow .3s ease}
 .story-card:hover{transform:translateY(-8px) rotate(0deg)!important;border-color:rgba(169,199,255,.42);background:rgba(255,255,255,.075);box-shadow:0 28px 65px rgba(0,0,0,.32);z-index:5}
 .story-card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(76,124,255,.09);filter:blur(5px);right:-80px;bottom:-90px;pointer-events:none}
 .story-card-1{grid-column:span 5;transform:rotate(-1.4deg)}
@@ -361,7 +361,26 @@ button{font:inherit}
 .story-card.dark-card{background:#0d213d}
 .story-card small{display:block;font:700 .58rem 'Space Mono',monospace;letter-spacing:.14em;color:var(--blue2);margin-bottom:15px}
 .story-pin{position:absolute;top:18px;right:20px;font:700 .65rem 'Space Mono',monospace;color:#71809a}
-.story-symbol{font:500 2.8rem/.8 'Playfair Display',serif;color:var(--blue2);margin-bottom:17px;text-shadow:0 0 25px rgba(169,199,255,.25)}
+.story-symbol{width:76px;height:76px;display:grid;place-items:center;position:relative;flex:0 0 76px;font:500 2.8rem/.8 'Playfair Display',serif;color:var(--blue2);margin:0 0 17px;text-shadow:0 0 25px rgba(169,199,255,.25)}
+.story-symbol>span{position:relative;z-index:3}
+.story-card small{min-height:2.1em;display:flex;align-items:center}
+.story-card h3{min-height:2.15em}
+.dating-symbol{width:94px;height:94px;flex-basis:94px;border-radius:50%;background:radial-gradient(circle,rgba(169,199,255,.2),rgba(76,124,255,.08) 48%,transparent 70%);text-shadow:0 0 28px rgba(169,199,255,.42);animation:datingPulse 2.2s ease-in-out infinite}
+.dating-symbol:before{content:"";position:absolute;inset:8px;border:1px solid rgba(169,199,255,.28);border-radius:50%;animation:datingRing 2.2s ease-out infinite}
+.story-heart-burst{position:absolute;inset:0;pointer-events:none;z-index:2}
+.story-heart-burst i{position:absolute;left:50%;top:50%;font-style:normal;font-size:1rem;color:#a9c7ff;opacity:0;animation:heartPopOrbit 2.8s ease-out infinite}
+.story-heart-burst i:nth-child(1){--hx:-48px;--hy:-42px;--delay:0s}
+.story-heart-burst i:nth-child(2){--hx:48px;--hy:-38px;--delay:.35s}
+.story-heart-burst i:nth-child(3){--hx:58px;--hy:12px;--delay:.7s}
+.story-heart-burst i:nth-child(4){--hx:-58px;--hy:15px;--delay:1.05s}
+.story-heart-burst i:nth-child(5){--hx:-28px;--hy:48px;--delay:1.4s}
+.story-heart-burst i:nth-child(6){--hx:30px;--hy:46px;--delay:1.75s}
+.story-heart-burst i{animation-delay:var(--delay)}
+.story-card-3.dating-seen{animation:datingCardGlow .8s ease both}
+@keyframes datingCardGlow{50%{border-color:rgba(169,199,255,.7);box-shadow:0 30px 90px rgba(76,124,255,.24),0 0 0 8px rgba(169,199,255,.06)}}
+@keyframes datingPulse{50%{transform:scale(1.045);box-shadow:0 0 38px rgba(76,124,255,.16)}}
+@keyframes datingRing{0%{transform:scale(.78);opacity:.8}75%,100%{transform:scale(1.35);opacity:0}}
+@keyframes heartPopOrbit{0%,8%{opacity:0;transform:translate(-50%,-50%) scale(.4)}18%{opacity:1}72%{opacity:.8}100%{opacity:0;transform:translate(calc(-50% + var(--hx)),calc(-50% + var(--hy))) scale(1.05)}}
 .story-card h3{margin:0 0 10px;font:600 clamp(1.45rem,3vw,2.2rem)/1.05 'Playfair Display',serif;color:#fff}
 .story-card p{margin:0;max-width:600px;color:#bac8dc;font-size:.92rem;line-height:1.65}
 .story-tag{display:inline-block;margin-top:20px;font:700 .52rem 'Space Mono',monospace;letter-spacing:.1em;color:#7387a7}
@@ -447,6 +466,10 @@ button{font:inherit}
   .story-chapter{padding-top:82px}
   .story-map{display:flex;flex-direction:column;gap:16px;min-height:0}
   .story-card{min-height:auto;padding:23px;transform:none!important}
+  .story-card h3{min-height:0}
+  .story-card small{min-height:0}
+  .story-symbol{width:70px;height:70px;flex-basis:70px}
+  .dating-symbol{width:84px;height:84px;flex-basis:84px}
   .story-card:hover{transform:translateY(-4px)!important}
   .story-intro{font-size:.92rem;line-height:1.65;margin-bottom:30px}
   .story-card h3{font-size:1.65rem}
@@ -468,4 +491,16 @@ button{font:inherit}
   .see-you-card{width:94%;border-radius:26px}
   .see-you-symbol{font-size:3rem}
   .see-you-number{right:12px}
+}
+
+/* PHOTO FALLBACKS */
+.scrap-card img.image-missing,
+.memory-photo-wrap img.image-missing{
+  background:linear-gradient(135deg,#eaf2ff,#f8fbff);
+  object-fit:contain;
+  min-height:240px;
+}
+.scrap-card-missing figcaption::after{
+  content:' Â· PHOTO COULD NOT LOAD';
+  color:#b44755;
 }
