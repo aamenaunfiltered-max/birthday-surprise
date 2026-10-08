@@ -1406,3 +1406,38 @@ function confetti(count=30){
   }
 
 }
+/* =========================================================
+   LETTER REVEAL
+========================================================= */
+
+const letterCard=document.querySelector('.letter-card');
+if(letterCard && 'IntersectionObserver' in window){
+  const letterObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        letterCard.classList.add('letter-visible');
+        letterObserver.unobserve(letterCard);
+      }
+    });
+  },{threshold:.25});
+  letterObserver.observe(letterCard);
+}
+
+/* =========================================================
+   FINAL REVEAL MOMENT
+========================================================= */
+
+const finalChapter=document.querySelector('.final-chapter');
+if(finalChapter && 'IntersectionObserver' in window){
+  const finalObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        finalChapter.classList.add('final-reveal-seen');
+        burstHearts(18);
+        setTimeout(()=>confetti(28),900);
+        finalObserver.unobserve(finalChapter);
+      }
+    });
+  },{threshold:.3});
+  finalObserver.observe(finalChapter);
+}
