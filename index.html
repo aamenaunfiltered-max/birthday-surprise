@@ -347,14 +347,15 @@
     ==================================================== -->
 
     <section
-      class="chapter timeline-chapter story-chapter"
+      class="chapter story-chapter"
       data-chapter="2"
     >
 
       <div class="chapter-number">02</div>
 
-      <div class="story-orbit story-orbit-a"></div>
-      <div class="story-orbit story-orbit-b"></div>
+      <div class="story-orbit story-orbit-a" aria-hidden="true"></div>
+      <div class="story-orbit story-orbit-b" aria-hidden="true"></div>
+      <div class="story-stars" aria-hidden="true"></div>
 
       <p class="eyebrow">
         THE STORY SO FAR
@@ -365,127 +366,102 @@
         <span>managed to write together.</span>
       </h2>
 
+      <p class="story-intro">
+        Not a timeline. Not a neat little sequence.
+        Just a handful of moments that somehow became us.
+      </p>
+
       <div class="story-map">
 
         <article class="story-card story-card-1">
           <span class="story-pin">01</span>
-
-          <small>
-            DECEMBER 2022
-          </small>
-
-          <h3>
-            The River Move
-          </h3>
-
+          <div class="story-symbol">∞</div>
+          <small>DECEMBER 2022</small>
+          <h3>The River Move</h3>
           <p>
             The first little attempt at flirting.
             I gave you my hand in the river to flirt with you.
             You very confidently rejected me.
             Iconic beginning. 😂
           </p>
-
-          <b>∞</b>
+          <span class="story-tag">THE ORIGINAL PLOT TWIST</span>
         </article>
-
 
         <article class="story-card story-card-2">
           <span class="story-pin">02</span>
-
-          <small>
-            FEBRUARY 2023
-          </small>
-
-          <h3>
-            Somewhere Between the Talks
-          </h3>
-
+          <div class="story-symbol">♡</div>
+          <small>FEBRUARY 2023</small>
+          <h3>Somewhere Between the Talks</h3>
           <p>
             We couldn't stop talking.
-            And then talking wasn't enough.
+            And somewhere between all those conversations,
+            talking stopped being enough.
           </p>
-
-          <b>♡</b>
+          <span class="story-tag">SOMETHING WAS HAPPENING</span>
         </article>
-
 
         <article class="story-card story-card-3 featured">
           <span class="story-pin">03</span>
-
-          <small>
-            14 MARCH 2023
-          </small>
-
-          <h3>
-            And Then There Was Us ♡
-          </h3>
-
+          <div class="story-symbol dating-symbol">
+            <div class="story-heart-burst" aria-hidden="true">
+              <i>♡</i><i>♥</i><i>♡</i><i>♥</i><i>♡</i><i>♥</i>
+            </div>
+            <span>14·03</span>
+          </div>
+          <small>14 MARCH 2023</small>
+          <h3>And Then There Was Us ♡</h3>
           <p>
-            The date that changed everything.
+            The date that changed the story.
+            The chapter where “us” officially became a thing.
           </p>
-
-          <b>14·03</b>
+          <span class="story-tag">THE DAY IT BECAME OURS</span>
         </article>
-
 
         <article class="story-card story-card-4">
           <span class="story-pin">04</span>
-
-          <small>
-            MAY 2024 → FEBRUARY 2025
-          </small>
-
-          <h3>
-            The Chapter We Had to Survive
-          </h3>
-
+          <div class="story-symbol">...</div>
+          <small>MAY 2024 → FEBRUARY 2025</small>
+          <h3>The Chapter We Had to Survive</h3>
           <p>
             Not every part of our story was easy.
-            This one tested us.
+            We parted ways, life pulled us in different directions,
+            and this chapter tested us.
           </p>
-
-          <b>...</b>
+          <span class="story-tag">THE PART THAT HURT</span>
         </article>
-
 
         <article class="story-card story-card-5 dark-card">
           <span class="story-pin">05</span>
-
-          <small>
-            SCHBANG
-          </small>
-
-          <h3>
-            The Comeback
-          </h3>
-
+          <div class="story-symbol">↻</div>
+          <small>SCHBANG</small>
+          <h3>The Comeback</h3>
           <p>
             Apparently our story wasn't finished yet.
+            Somehow, against the odds, we found our way back.
           </p>
-
-          <b>↻</b>
+          <span class="story-tag">ROUND TWO. BETTER.</span>
         </article>
-
 
         <article class="story-card story-card-6">
           <span class="story-pin">06</span>
-
-          <small>
-            NOW
-          </small>
-
-          <h3>
-            Still Us. ∞
-          </h3>
-
+          <div class="story-symbol">∞</div>
+          <small>NOW</small>
+          <h3>Still Us. Still Infinite.</h3>
           <p>
-            Still choosing this ridiculous,
-            stubborn, beautiful story.
+            Still ridiculous. Still stubborn. Still laughing.
+            Still choosing this story.
           </p>
-
-          <b>∞</b>
+          <span class="story-tag">STATUS: STILL WRITING</span>
         </article>
 
+      </div>
+
+      <div class="story-bottom" aria-hidden="true">
+        <span>THEN</span>
+        <i>∞</i>
+        <strong>STILL HERE</strong>
+        <i>∞</i>
+        <span>NOW</span>
       </div>
 
       <button
@@ -496,9 +472,6 @@
       </button>
 
     </section>
-
-
-
     <!-- ===================================================
          CHAPTER 03 — QUIZ
     ==================================================== -->
@@ -524,7 +497,6 @@
       >
 
         <div class="quiz-meta">
-
           <span id="questionCount">
             01 / 06
           </span>
@@ -532,7 +504,6 @@
           <span id="quizScore">
             0 points
           </span>
-
         </div>
 
         <h3 id="questionText"></h3>
@@ -600,9 +571,7 @@
 
       <div class="chapter-number">04</div>
 
-      <p class="eyebrow">
-        THE MAIN EVENT
-      </p>
+      <p class="eyebrow">THE MAIN EVENT</p>
 
       <h2>
         Catch my heart <span>♡</span>
@@ -612,129 +581,46 @@
         A highly important relationship survival mission.
       </p>
 
-
       <div class="game-rules">
 
         <div class="game-rule-block good-rules">
-
-          <small>
-            ♡ HOW TO PLAY
-          </small>
-
+          <small>♡ HOW TO PLAY · CATCH THESE</small>
           <div>
-
-            <span>
-              ❤️ Heart
-              <b>+1</b>
-            </span>
-
-            <span>
-              🥤 Diet Coke
-              <b>+2</b>
-            </span>
-
-            <span>
-              🍔 MCD
-              <b>+2</b>
-            </span>
-
-            <span>
-              🍜 MOGO Ramen
-              <b>+2</b>
-            </span>
-
-            <span>
-              🌸 Flower
-              <b>+3</b>
-            </span>
-
-            <span>
-              ∞ Infinity
-              <b>+5</b>
-            </span>
-
+            <span>❤️ Heart <b>+1</b></span>
+            <span>🥤 Diet Coke <b>+2</b></span>
+            <span>🍔 MCD <b>+2</b></span>
+            <span>🍜 MOGO Ramen <b>+2</b></span>
+            <span>🌸 Flower <b>+3</b></span>
+            <span>∞ Infinity <b>+5</b></span>
           </div>
-
         </div>
-
 
         <div class="game-rule-block bad-rules">
-
-          <small>
-            ⚠️ NEGATIVE MARKING
-          </small>
-
+          <small>⚠️ NEGATIVE MARKING</small>
           <div>
-
-            <span>
-              💼 Work
-              <b>-2</b>
-            </span>
-
-            <span>
-              🥦 Healthy Food
-              <b>-1</b>
-            </span>
-
-            <span>
-              😤 My Attitude
-              <b>-3</b>
-            </span>
-
-            <span>
-              📱 "We Need To Talk"
-              <b>-5</b>
-            </span>
-
+            <span>💼 Work <b>-2</b></span>
+            <span>🥦 Healthy Food <b>-1</b></span>
+            <span>😤 My Attitude <b>-3</b></span>
+            <span>📱 “We Need To Talk” <b>-5</b></span>
           </div>
-
           <p>
-            Yes, you can lose points.
-            Choose wisely. ♡
+            Yes, you can lose points. Choose wisely. ♡
           </p>
-
         </div>
 
       </div>
 
-
       <div class="game-mission">
-
-        <strong>
-          YOUR MISSION
-        </strong>
-
-        <span>
-          Catch enough good things to survive all 4 levels.
-        </span>
-
+        <strong>YOUR MISSION</strong>
+        <span>Catch enough good things to survive all 4 levels.</span>
       </div>
-
 
       <div class="game-hud">
-
-        <span>
-          LEVEL
-          <b id="gameLevel">01</b>
-        </span>
-
-        <span>
-          SCORE
-          <b id="gameScore">0</b>
-        </span>
-
-        <span>
-          TIME
-          <b id="gameTime">15</b>
-        </span>
-
-        <span>
-          BEST
-          <b id="bestScore">0</b>
-        </span>
-
+        <span>LEVEL <b id="gameLevel">01</b></span>
+        <span>SCORE <b id="gameScore">0</b></span>
+        <span>TIME <b id="gameTime">15</b></span>
+        <span>BEST <b id="bestScore">0</b></span>
       </div>
-
 
       <div
         id="catchGame"
@@ -746,33 +632,28 @@
           class="game-start-overlay"
           id="gameOverlay"
         >
-
-          <button
-            id="startGame"
-            class="primary-btn"
-            type="button"
-          >
-            START THE CHAOS ♡
-          </button>
-
+          <div class="game-overlay-copy">
+            <span>♡</span>
+            <strong id="gameOverlayTitle">READY?</strong>
+            <p id="gameOverlayText">
+              Four levels. Good things add points.
+              Bad things take them away. Survive us. ♡
+            </p>
+            <button
+              id="startGame"
+              class="primary-btn"
+              type="button"
+            >
+              START THE CHAOS ♡
+            </button>
+          </div>
         </div>
 
-
-        <div
-          id="player"
-          class="player"
-        >
-          ♡
-        </div>
+        <div id="player" class="player">♡</div>
 
       </div>
 
-
-      <p
-        id="gameResult"
-        class="feedback"
-      ></p>
-
+      <p id="gameResult" class="feedback"></p>
 
       <button
         id="continueAfterGame"
@@ -783,141 +664,88 @@
       </button>
 
     </section>
-
-
-
     <!-- ===================================================
          CHAPTER 05 — THE WAY I SEE YOU
     ==================================================== -->
 
     <section
-      class="chapter eyes-chapter"
+      class="chapter see-you-chapter"
       data-chapter="5"
     >
 
-      <div class="chapter-number">
-        05
-      </div>
+      <div class="chapter-number">05</div>
 
-      <div class="eyes-glow"></div>
+      <div class="see-you-aura" aria-hidden="true"></div>
 
       <p class="eyebrow">
-        IF YOU COULD SEE YOURSELF THROUGH MY EYES
+        THE PART YOU PROBABLY DON'T SEE
       </p>
 
       <h2>
-        The way I see you.
+        If you could see yourself<br>
+        <span>through my eyes.</span>
       </h2>
 
-      <p class="lead eyes-intro">
-        You probably don't realise how many little things
-        I notice about you.
+      <p class="see-you-intro">
+        You know the version of yourself you live with every day.
+        I know the little things about you that you probably don't
+        even realise I notice.
       </p>
 
+      <div class="see-you-stage">
 
-      <div class="eyes-stage">
+        <div class="see-you-orbit see-you-orbit-a" aria-hidden="true"></div>
+        <div class="see-you-orbit see-you-orbit-b" aria-hidden="true"></div>
 
-        <div
-          class="eyes-progress"
-          id="eyesProgress"
-        >
-          01 / 06
+        <div class="see-you-number" id="seeYouNumber">01</div>
+
+        <div class="see-you-card">
+          <div class="see-you-symbol" id="seeYouSymbol">✦</div>
+          <p id="seeYouText">
+            I notice the tiny things you think nobody notices.
+          </p>
         </div>
 
-
-        <div
-          class="eyes-card"
-          id="eyesCard"
-        >
-
-          <span
-            class="eyes-number"
-            id="eyesNumber"
-          >
-            01
-          </span>
-
-          <div
-            class="eyes-symbol"
-            id="eyesSymbol"
-          >
-            ♡
-          </div>
-
-          <p
-            class="eyes-label"
-            id="eyesLabel"
-          >
-            THE LITTLE THINGS
-          </p>
-
-          <h3
-            id="eyesTitle"
-          >
-            I notice more than you think.
-          </h3>
-
-          <p
-            id="eyesText"
-          >
-            The tiny things you do.
-            The details you probably don't even realise
-            I remember.
-          </p>
-
+        <div class="see-you-progress" aria-hidden="true">
+          <span id="seeYouProgressBar"></span>
         </div>
-
-
-        <button
-          id="eyesNext"
-          class="primary-btn"
-          type="button"
-        >
-          SHOW ME ANOTHER ♡
-        </button>
 
       </div>
-
-
-      <div
-        id="eyesReveal"
-        class="eyes-reveal hidden"
-      >
-
-        <div class="infinity-mark small">
-          ∞
-        </div>
-
-        <p class="eyebrow">
-          IF YOU COULD BORROW MY EYES
-        </p>
-
-        <h3>
-          You'd understand why<br>
-          <span>you're so special to me.</span>
-        </h3>
-
-        <p>
-          I wish you could see yourself the way I see you.
-          Loved. Important. Worth celebrating.
-          Completely and ridiculously special.
-        </p>
-
-      </div>
-
 
       <button
-        class="primary-btn next-btn eyes-continue hidden"
-        id="eyesContinue"
-        data-next="6"
+        id="seeYouNext"
+        class="primary-btn"
+        type="button"
       >
-        WALK INTO OUR MEMORIES ♡
+        SHOW ME ANOTHER ♡
+      </button>
+
+      <div
+        id="seeYouFinal"
+        class="see-you-final hidden"
+      >
+        <p class="eyebrow">THE THING I WISH YOU KNEW</p>
+        <h3>
+          If you could borrow my eyes for just one minute,<br>
+          <span>you'd understand why you're so special to me.</span>
+        </h3>
+        <p>
+          And maybe you'd finally believe me when I tell you
+          that you are worth celebrating. Not because it's your
+          birthday. Just because you're you.
+        </p>
+        <div class="see-you-infinity">∞</div>
+      </div>
+
+      <button
+        id="seeYouContinue"
+        class="primary-btn hidden"
+        type="button"
+      >
+        LET'S LOOK BACK ♡
       </button>
 
     </section>
-
-
-
     <!-- ===================================================
          CHAPTER 06 — MEMORY LANE
     ==================================================== -->
@@ -927,9 +755,7 @@
       data-chapter="6"
     >
 
-      <div class="chapter-number">
-        06
-      </div>
+      <div class="chapter-number">06</div>
 
       <p class="eyebrow">
         A LITTLE MEMORY DOWN THE LANE
@@ -945,7 +771,6 @@
         Tell me whatever comes to your mind
         when you see each one.
       </p>
-
 
       <div class="memory-progress">
 
@@ -1127,14 +952,22 @@
 
         </form>
 
+        <p class="memory-note">
+          Your answers stay in this little adventure
+          until you choose to send them. The first time
+          this form is used, FormSubmit will ask me to
+          confirm the destination email.
+        </p>
+
       </div>
 
 
       <button
-        class="primary-btn next-btn"
-        data-next="7"
+        id="memoryContinue"
+        class="primary-btn hidden"
+        type="button"
       >
-        OPEN THE SCRAPBOOK ♡
+        KEEP WALKING →
       </button>
 
     </section>
@@ -1150,109 +983,62 @@
       data-chapter="7"
     >
 
-      <div class="chapter-number">
-        07
-      </div>
+      <div class="chapter-number">07</div>
 
       <p class="eyebrow">
         THE REST OF US
       </p>
 
       <h2>
-        A whole lot of<br>
-        <span>little moments.</span>
+        A scrapbook of<br>
+        <span>the chaos in between.</span>
       </h2>
 
       <p class="lead">
-        No timeline. No explanation.
-        Just us being us.
+        Because apparently ten memories
+        were nowhere near enough.
       </p>
+
+      <div
+        class="marquee"
+        aria-hidden="true"
+      >
+
+        <div>
+          laughing · annoying each other · dates ·
+          MCD · ramen · random days · flowers ·
+          road trips · us · us · us · ∞ ·
+        </div>
+
+        <div>
+          laughing · annoying each other · dates ·
+          MCD · ramen · random days · flowers ·
+          road trips · us · us · us · ∞ ·
+        </div>
+
+      </div>
 
 
       <div
-        class="scrapbook-grid"
-        id="scrapbookGrid"
-      >
+        class="scrapbook"
+        id="scrapbook"
+      ></div>
 
-        <figure class="scrap-photo scrap-photo-1">
-          <img
-            src="./images/photo-01.jpg"
-            alt="A memory of us"
-            loading="lazy"
-          >
-        </figure>
 
-        <figure class="scrap-photo scrap-photo-2">
-          <img
-            src="./images/photo-02.jpg"
-            alt="A memory of us"
-            loading="lazy"
-          >
-        </figure>
+      <div class="scrapbook-end">
 
-        <figure class="scrap-photo scrap-photo-3">
-          <img
-            src="./images/photo-03.jpg"
-            alt="A memory of us"
-            loading="lazy"
-          >
-        </figure>
+        <span>
+          TO BE CONTINUED
+        </span>
 
-        <figure class="scrap-photo scrap-photo-4">
-          <img
-            src="./images/photo-04.jpg"
-            alt="A memory of us"
-            loading="lazy"
-          >
-        </figure>
+        <strong>
+          ∞
+        </strong>
 
-        <figure class="scrap-photo scrap-photo-5">
-          <img
-            src="./images/photo-05.jpg"
-            alt="A memory of us"
-            loading="lazy"
-          >
-        </figure>
-
-        <figure class="scrap-photo scrap-photo-6">
-          <img
-            src="./images/photo-06.jpg"
-            alt="A memory of us"
-            loading="lazy"
-          >
-        </figure>
-
-        <figure class="scrap-photo scrap-photo-7">
-          <img
-            src="./images/photo-07.jpg"
-            alt="A memory of us"
-            loading="lazy"
-          >
-        </figure>
-
-        <figure class="scrap-photo scrap-photo-8">
-          <img
-            src="./images/photo-08.jpg"
-            alt="A memory of us"
-            loading="lazy"
-          >
-        </figure>
-
-        <figure class="scrap-photo scrap-photo-9">
-          <img
-            src="./images/photo-09.jpg"
-            alt="A memory of us"
-            loading="lazy"
-          >
-        </figure>
-
-        <figure class="scrap-photo scrap-photo-10">
-          <img
-            src="./images/photo-10.jpg"
-            alt="A memory of us"
-            loading="lazy"
-          >
-        </figure>
+        <p>
+          Somehow, after all the chaos,
+          we kept making memories.
+        </p>
 
       </div>
 
@@ -1261,7 +1047,7 @@
         class="primary-btn next-btn"
         data-next="8"
       >
-        THERE'S ONE MORE THING ♡
+        I HAVE ONE MORE THING TO SAY ♡
       </button>
 
     </section>
@@ -1277,18 +1063,15 @@
       data-chapter="8"
     >
 
-      <div class="chapter-number">
-        08
-      </div>
+      <div class="chapter-number">08</div>
 
       <p class="eyebrow">
-        SOMETHING I NEEDED YOU TO KNOW
+        THE PART WHERE I GET SERIOUS
       </p>
 
       <h2>
         A letter for you.
       </h2>
-
 
       <article class="letter-card">
 
