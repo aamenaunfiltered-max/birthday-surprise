@@ -432,6 +432,43 @@ schbangCard?.addEventListener(
 
 
 /* =========================================================
+   DATING DAY HEART MOMENT
+========================================================= */
+
+const datingCard =
+  document.querySelector('.story-card-3');
+
+if(datingCard){
+
+  const datingObserver =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if(entry.isIntersecting){
+
+            datingCard.classList.add('dating-seen');
+
+            setTimeout(
+              () => datingCard.classList.remove('dating-seen'),
+              1800
+            );
+
+          }
+
+        });
+
+      },
+      {threshold:.55}
+    );
+
+  datingObserver.observe(datingCard);
+
+}
+
+
+/* =========================================================
    REPLAY
 ========================================================= */
 
@@ -1141,26 +1178,24 @@ const seeYouFinal=document.getElementById('seeYouFinal');
 const seeYouContinue=document.getElementById('seeYouContinue');
 
 function renderSeeYou(){
-  const item=seeYouLines[seeYouIndex];
+  if(!seeYouText || !seeYouSymbol || !seeYouNumber || !seeYouProgressBar || !seeYouNext){return;}
 
+  const item=seeYouLines[seeYouIndex];
   seeYouNumber.textContent=String(seeYouIndex+1).padStart(2,'0');
   seeYouSymbol.textContent=item[0];
   seeYouText.textContent=item[1];
   seeYouProgressBar.style.width=`${((seeYouIndex+1)/seeYouLines.length)*100}%`;
+  seeYouNext.textContent=seeYouIndex===seeYouLines.length-1?'SEE WHAT I MEAN ♡':'SHOW ME ANOTHER ♡';
 
-  document.querySelector('.see-you-card')?.classList.remove('see-you-card-pulse');
-  requestAnimationFrame(()=>
-    document.querySelector('.see-you-card')?.classList.add('see-you-card-pulse')
-  );
-
-  if(seeYouIndex===seeYouLines.length-1){
-    seeYouNext.textContent='SEE WHAT I MEAN ♡';
-  }else{
-    seeYouNext.textContent='SHOW ME ANOTHER ♡';
+  const card=document.querySelector('.see-you-card');
+  if(card){
+    card.classList.remove('see-you-card-pulse');
+    void card.offsetWidth;
+    card.classList.add('see-you-card-pulse');
   }
 }
 
-seeYouNext.addEventListener('click',()=>{
+seeYouNext?.addEventListener('click',()=>{
   if(seeYouIndex<seeYouLines.length-1){
     seeYouIndex++;
     renderSeeYou();
@@ -1168,13 +1203,13 @@ seeYouNext.addEventListener('click',()=>{
   }
 
   seeYouNext.classList.add('hidden');
-  seeYouFinal.classList.remove('hidden');
-  seeYouContinue.classList.remove('hidden');
+  seeYouFinal?.classList.remove('hidden');
+  seeYouContinue?.classList.remove('hidden');
   burstHearts(18);
   confetti(24);
 });
 
-seeYouContinue.addEventListener('click',()=>goToChapter(6));
+seeYouContinue?.addEventListener('click',()=>goToChapter(6));
 renderSeeYou();
 
 
@@ -1210,358 +1245,107 @@ const ALL_PHOTOS =
    MEMORY LANE
 ========================================================= */
 
-const memoryPhotos =
-  ALL_PHOTOS.slice(
-    0,
-    10
-  );
-
-const memoryAnswers =
-  Array(10).fill('');
-
+const memoryPhotos=ALL_PHOTOS.slice(0,10);
 let memoryIndex=0;
+let memoryAnswers=Array(10).fill('');
 
+try{
+  const saved=JSON.parse(localStorage.getItem('birthdayMemoryAnswers')||'null');
+  if(Array.isArray(saved) && saved.length===10){memoryAnswers=saved;}
+}catch(e){}
 
-const memoryPhoto =
-  document.getElementById(
-    'memoryPhoto'
-  );
-
-const memoryAnswer =
-  document.getElementById(
-    'memoryAnswer'
-  );
-
-const memoryProgress =
-  document.getElementById(
-    'memoryProgress'
-  );
-
-const memoryBar =
-  document.getElementById(
-    'memoryBar'
-  );
-
-const memoryNext =
-  document.getElementById(
-    'memoryNext'
-  );
-
-const memoryFinish =
-  document.getElementById(
-    'memoryFinish'
-  );
-
-const memoryForm =
-  document.getElementById(
-    'memoryForm'
-  );
-
-const memoryContinue =
-  document.getElementById(
-    'memoryContinue'
-  );
-
+const memoryPhoto=document.getElementById('memoryPhoto');
+const memoryAnswer=document.getElementById('memoryAnswer');
+const memoryProgress=document.getElementById('memoryProgress');
+const memoryBar=document.getElementById('memoryBar');
+const memoryNext=document.getElementById('memoryNext');
+const memoryFinish=document.getElementById('memoryFinish');
+const memoryForm=document.getElementById('memoryForm');
+const memoryContinue=document.getElementById('memoryContinue');
 
 function renderMemory(){
-
-  const filename =
-    memoryPhotos[
-      memoryIndex
-    ];
-
-  memoryPhoto.src =
-    IMAGE_PATH + filename;
-
-  memoryPhoto.alt =
-    `Memory ${memoryIndex+1} of us`;
-
-  memoryProgress.textContent =
-    `MEMORY ${String(
-      memoryIndex+1
-    ).padStart(2,'0')} / 10`;
-
-  memoryBar.style.width =
-    `${(memoryIndex+1)*10}%`;
-
-  memoryAnswer.value =
-    memoryAnswers[
-      memoryIndex
-    ] || '';
-
-  memoryPhoto.classList.remove(
-    'image-missing'
-  );
-
+  if(!memoryPhoto || !memoryAnswer || !memoryProgress || !memoryBar){return;}
+  const filename=memoryPhotos[memoryIndex];
+  memoryPhoto.src=IMAGE_PATH+filename;
+  memoryPhoto.alt=`Memory ${memoryIndex+1} of us`;
+  memoryProgress.textContent=`MEMORY ${String(memoryIndex+1).padStart(2,'0')} / 10`;
+  memoryBar.style.width=`${(memoryIndex+1)*10}%`;
+  memoryAnswer.value=memoryAnswers[memoryIndex]||'';
 }
 
+memoryPhoto?.addEventListener('error',()=>{
+  memoryPhoto.classList.add('image-missing');
+  memoryPhoto.alt=`Memory ${memoryIndex+1} could not be loaded`;
+});
 
-memoryPhoto?.addEventListener(
-  'error',
-  () => {
+memoryAnswer?.addEventListener('input',()=>{
+  memoryAnswers[memoryIndex]=memoryAnswer.value;
+  localStorage.setItem('birthdayMemoryAnswers',JSON.stringify(memoryAnswers));
+});
 
-    console.error(
-      'Could not load:',
-      memoryPhoto.src
-    );
+memoryNext?.addEventListener('click',()=>{
+  memoryAnswers[memoryIndex]=memoryAnswer?.value.trim()||'';
+  localStorage.setItem('birthdayMemoryAnswers',JSON.stringify(memoryAnswers));
 
-    showToast(
-      `Memory ${memoryIndex+1} image could not be loaded.`
-    );
-
+  if(memoryIndex<9){
+    memoryIndex++;
+    renderMemory();
+    document.querySelector('.memory-lane-chapter')?.scrollIntoView({behavior:'smooth',block:'start'});
+    return;
   }
-);
 
-
-memoryAnswer?.addEventListener(
-  'input',
-  () => {
-
-    memoryAnswers[
-      memoryIndex
-    ] =
-      memoryAnswer.value;
-
-    localStorage.setItem(
-      'birthdayMemoryAnswers',
-      JSON.stringify(
-        memoryAnswers
-      )
-    );
-
+  for(let i=0;i<10;i++){
+    const field=document.getElementById(`memory${String(i+1).padStart(2,'0')}Field`);
+    if(field) field.value=memoryAnswers[i]||'(left blank)';
   }
-);
 
+  document.querySelector('.memory-card')?.classList.add('hidden');
+  memoryFinish?.classList.remove('hidden');
+  memoryContinue?.classList.remove('hidden');
+  confetti(30);
+});
 
-memoryNext?.addEventListener(
-  'click',
-  () => {
-
-    memoryAnswers[
-      memoryIndex
-    ] =
-      memoryAnswer.value.trim();
-
-    localStorage.setItem(
-      'birthdayMemoryAnswers',
-      JSON.stringify(
-        memoryAnswers
-      )
-    );
-
-
-    if(memoryIndex<9){
-
-      memoryIndex++;
-
-      renderMemory();
-
-      window.scrollTo({
-        top:
-          document
-            .querySelector(
-              '.memory-lane-chapter'
-            )
-            .offsetTop + 120,
-        behavior:'smooth'
-      });
-
-    }else{
-
-      for(
-        let i=0;
-        i<10;
-        i++
-      ){
-
-        const field =
-          document.getElementById(
-            `memory${String(
-              i+1
-            ).padStart(
-              2,
-              '0'
-            )}Field`
-          );
-
-        if(field){
-
-          field.value =
-            memoryAnswers[i] ||
-            '(left blank)';
-
-        }
-
-      }
-
-
-      document
-        .querySelector(
-          '.memory-card'
-        )
-        ?.classList.add(
-          'hidden'
-        );
-
-      memoryFinish?.classList.remove(
-        'hidden'
-      );
-
-      memoryContinue?.classList.remove(
-        'hidden'
-      );
-
-      confetti(30);
-
-    }
-
+memoryForm?.addEventListener('submit',()=>{
+  for(let i=0;i<10;i++){
+    const field=document.getElementById(`memory${String(i+1).padStart(2,'0')}Field`);
+    if(field) field.value=memoryAnswers[i]||'(left blank)';
   }
-);
+});
 
-
-memoryForm?.addEventListener(
-  'submit',
-  e => {
-
-    if(
-      location.protocol === 'file:'
-    ){
-
-      e.preventDefault();
-
-      showToast(
-        'Memory Lane will send your answers once the website is live on GitHub Pages. ♡'
-      );
-
-      return;
-
-    }
-
-
-    for(
-      let i=0;
-      i<10;
-      i++
-    ){
-
-      const field =
-        document.getElementById(
-          `memory${String(
-            i+1
-          ).padStart(
-            2,
-            '0'
-          )}Field`
-        );
-
-      if(field){
-
-        field.value =
-          memoryAnswers[i] ||
-          '(left blank)';
-
-      }
-
-    }
-
-  }
-);
-
-
-memoryContinue?.addEventListener(
-  'click',
-  () =>
-    goToChapter(7)
-);
+memoryContinue?.addEventListener('click',()=>goToChapter(7));
 
 
 /* =========================================================
    SCRAPBOOK
 ========================================================= */
 
-const scrapbook =
-  document.getElementById(
-    'scrapbook'
-  );
+const scrapbook=document.getElementById('scrapbook');
+const scrapbookPhotos=ALL_PHOTOS.slice(10);
 
-const scrapbookPhotos =
-  ALL_PHOTOS.slice(
-    10
-  );
+if(scrapbook){
+  scrapbook.innerHTML='';
+  scrapbookPhotos.forEach((filename,index)=>{
+    const card=document.createElement('figure');
+    card.className='scrap-card';
+    card.style.setProperty('--tilt',`${(index%5-2)*1.4}deg`);
 
-
-scrapbookPhotos.forEach(
-  (filename,index) => {
-
-    const card =
-      document.createElement(
-        'figure'
-      );
-
-    card.className =
-      'scrap-card';
-
-    card.style.setProperty(
-      '--tilt',
-      `${(
-        index % 5 - 2
-      ) * 1.4}deg`
-    );
-
-
-    const img =
-      document.createElement(
-        'img'
-      );
-
-    img.src =
-      IMAGE_PATH + filename;
-
-    img.alt =
-      `Memory ${index+11} of us`;
-
+    const img=document.createElement('img');
+    img.src=IMAGE_PATH+filename;
+    img.alt=`Memory ${index+11} of us`;
     img.loading='lazy';
+    img.decoding='async';
+    img.addEventListener('error',()=>{
+      img.classList.add('image-missing');
+      card.classList.add('scrap-card-missing');
+    });
 
-
-    const captions=[
-
-      'one of those days',
-
-      'still laughing',
-
-      'just us',
-
-      'another little moment',
-
-      'proof we were here'
-
-    ];
-
-
-    const caption =
-      document.createElement(
-        'figcaption'
-      );
-
-    caption.textContent =
-      `${captions[
-        index % captions.length
-      ]} · ${String(
-        index+11
-      ).padStart(
-        2,
-        '0'
-      )}`;
-
-
-    card.appendChild(img);
-
-    card.appendChild(caption);
-
+    const captions=['one of those days','still laughing','just us','another little moment','proof we were here'];
+    const caption=document.createElement('figcaption');
+    caption.textContent=`${captions[index%captions.length]} · ${String(index+11).padStart(2,'0')}`;
+    card.append(img,caption);
     scrapbook.appendChild(card);
-
-  }
-);
+  });
+}
 
 
 /* =========================================================
