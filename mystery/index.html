@@ -2,163 +2,1031 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#071225">
-<meta name="description" content="A four-lock midnight escape-room mystery.">
-<title>Case 1010 | The Infinity Files</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap');
-:root{--bg:#030813;--navy:#071225;--panel:rgba(13,29,54,.82);--line:rgba(169,199,255,.2);--blue:#4c7cff;--ice:#a9c7ff;--white:#f7faff;--muted:#a5b5cd;--good:#9de7c1;--bad:#ff9da9}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--white);font-family:'DM Sans',sans-serif;background:radial-gradient(ellipse at 50% -15%,#193563 0,transparent 45%),radial-gradient(ellipse at 100% 80%,rgba(42,85,160,.17),transparent 38%),var(--bg);overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:radial-gradient(#c8d9ff 1px,transparent 1px);background-size:83px 83px;mask-image:linear-gradient(to bottom,#000,transparent 90%)}
-button,input{font:inherit}.shell{width:min(900px,calc(100% - 32px));margin:0 auto;padding:34px 0 70px;position:relative;z-index:1}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:34px}.brand{font:700 .67rem 'Space Mono',monospace;letter-spacing:.14em;color:var(--ice)}.toplink{color:var(--muted);font-size:.8rem;text-decoration:none;border:1px solid var(--line);padding:9px 13px;border-radius:999px}.toplink:hover{color:white;border-color:var(--ice)}.hero{text-align:center;margin:25px auto 34px;max-width:720px}.sigil{font:5rem/.95 'Playfair Display',serif;color:var(--ice);text-shadow:0 0 36px rgba(76,124,255,.45);margin:0 auto 16px;animation:float 4s ease-in-out infinite}.eyebrow{font:700 .65rem 'Space Mono',monospace;letter-spacing:.22em;color:var(--ice);text-transform:uppercase}.hero h1{font:600 clamp(2.7rem,8vw,5.5rem)/.98 'Playfair Display',serif;letter-spacing:-.045em;margin:16px 0}.hero h1 span{color:var(--ice)}.hero p{max-width:540px;margin:0 auto;color:#c3cee0;line-height:1.75}.case-meta{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:22px 0}.pill{font:700 .58rem 'Space Mono',monospace;letter-spacing:.08em;color:#c9d8f0;border:1px solid var(--line);border-radius:999px;padding:8px 11px;background:rgba(255,255,255,.025)}
-.progress-wrap{margin:26px 0 16px}.progress-label{display:flex;justify-content:space-between;font:700 .62rem 'Space Mono',monospace;color:var(--muted);letter-spacing:.08em;margin-bottom:9px}.progress{height:5px;background:#16243b;border-radius:99px;overflow:hidden}.progress>span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--blue),var(--ice));box-shadow:0 0 18px rgba(169,199,255,.6);transition:width .5s ease}
-.panel{border:1px solid var(--line);background:linear-gradient(145deg,rgba(18,38,70,.94),rgba(6,16,32,.96));border-radius:28px;padding:clamp(22px,5vw,42px);box-shadow:0 24px 80px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.04);position:relative;overflow:hidden}.panel:before{content:"";position:absolute;width:230px;height:230px;border-radius:50%;right:-100px;top:-125px;background:rgba(76,124,255,.13);filter:blur(12px);pointer-events:none}.lock-head{display:flex;align-items:center;gap:15px;margin-bottom:24px;position:relative}.lock-num{width:45px;height:45px;flex:0 0 45px;border-radius:50%;display:grid;place-items:center;background:rgba(169,199,255,.12);border:1px solid rgba(169,199,255,.36);color:var(--ice);font:700 .8rem 'Space Mono',monospace}.lock-head small{display:block;font:700 .59rem 'Space Mono',monospace;letter-spacing:.16em;color:var(--ice);margin-bottom:5px}.lock-head h2{margin:0;font:600 clamp(1.65rem,5vw,2.5rem)/1.05 'Playfair Display',serif}.brief{color:#c4d0e2;line-height:1.75;max-width:700px;margin:0 0 20px}.clue-box{border:1px solid rgba(169,199,255,.14);border-radius:18px;padding:20px;background:rgba(2,8,18,.34);margin:18px 0}.clue-label{font:700 .58rem 'Space Mono',monospace;color:var(--ice);letter-spacing:.16em;margin:0 0 12px}.cipher{font:700 clamp(1.2rem,4vw,2rem) 'Space Mono',monospace;letter-spacing:.1em;color:#fff;overflow-wrap:anywhere}.clue-box p:last-child{margin-bottom:0}.clue-box p{line-height:1.7;color:#d2dced}.clue-list{padding-left:21px;color:#d2dced;line-height:1.9}.input-label{display:block;font:700 .62rem 'Space Mono',monospace;letter-spacing:.1em;color:var(--ice);margin:22px 0 9px}.answer-row{display:flex;gap:10px}.answer-row input{flex:1;min-width:0;background:#050d1a;border:1px solid rgba(169,199,255,.25);border-radius:14px;padding:15px 16px;color:white;outline:none;letter-spacing:.04em}.answer-row input:focus{border-color:var(--ice);box-shadow:0 0 0 3px rgba(76,124,255,.16)}.btn{border:1px solid transparent;border-radius:999px;padding:13px 18px;cursor:pointer;font-weight:700;font-size:.78rem;transition:transform .18s,background .18s,border-color .18s}.btn:hover{transform:translateY(-2px)}.btn-primary{background:var(--ice);color:#081426;box-shadow:0 9px 25px rgba(76,124,255,.17)}.btn-secondary{background:rgba(255,255,255,.04);border-color:var(--line);color:#dce7f8}.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:13px}.feedback{min-height:26px;margin:14px 0 0;color:var(--muted);font-size:.88rem;line-height:1.5}.feedback.good{color:var(--good)}.feedback.bad{color:var(--bad)}.hint{margin-top:15px;padding:13px 15px;background:rgba(169,199,255,.06);border-left:2px solid var(--ice);border-radius:0 12px 12px 0;color:#c8d5e9;font-size:.86rem;line-height:1.6}.hint[hidden]{display:none}.step{display:none;animation:appear .45s ease both}.step.active{display:block}.footer-note{text-align:center;color:#7186a5;font-size:.72rem;line-height:1.7;margin:22px auto 0;max-width:620px}.success{text-align:center;padding:10px 0 4px}.success .sigil{font-size:5.5rem}.success h2{font:600 clamp(2.3rem,7vw,4rem)/1 'Playfair Display',serif;margin:10px 0 18px}.success h2 span{color:var(--ice)}.success p{max-width:550px;margin:0 auto 18px;color:#cad6e8;line-height:1.8}.final-code{display:inline-block;font:700 1rem 'Space Mono',monospace;letter-spacing:.18em;padding:14px 20px;border:1px solid var(--line);border-radius:14px;background:rgba(169,199,255,.07);color:var(--ice);margin:5px 0 20px}.case-closed{font:700 .62rem 'Space Mono',monospace;letter-spacing:.22em;color:var(--good);margin-bottom:18px}.shake{animation:shake .28s linear}.hidden{display:none!important}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes appear{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}@keyframes shake{25%,75%{transform:translateX(-4px)}50%{transform:translateX(4px)}}
-@media(max-width:560px){.shell{width:min(100% - 22px,900px);padding-top:18px}.topbar{margin-bottom:20px}.brand{font-size:.55rem}.hero{margin:12px auto 26px}.panel{border-radius:22px;padding:22px 17px}.answer-row{flex-direction:column}.answer-row .btn{width:100%}.btn-row .btn{flex:1}.lock-head{align-items:flex-start}.cipher{letter-spacing:.035em}.toplink{font-size:.7rem;padding:8px 10px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#030813">
+  <meta name="description" content="Four locks. One missing infinity. A midnight escape-room mystery.">
+  <title>The Missing Infinity | Case 1010</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #030813;
+      --navy: #09172c;
+      --panel: #0b1930;
+      --panel-light: #112442;
+      --ice: #a9c7ff;
+      --blue: #4c7cff;
+      --white: #f5f8ff;
+      --muted: #a5b5cd;
+      --line: rgba(169,199,255,.23);
+      --good: #9de7c1;
+      --bad: #ff9da9;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--white);
+      font-family: "DM Sans", sans-serif;
+      background:
+        radial-gradient(ellipse at 50% -10%, #1b3763 0, transparent 48%),
+        radial-gradient(ellipse at 100% 80%, rgba(40,80,150,.16), transparent 40%),
+        var(--bg);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .23;
+      background-image: radial-gradient(#c8d9ff 1px, transparent 1px);
+      background-size: 83px 83px;
+    }
+
+    button, input { font: inherit; }
+
+    button:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 2px solid var(--ice);
+      outline-offset: 4px;
+    }
+
+    .shell {
+      width: min(880px, calc(100% - 30px));
+      margin: auto;
+      padding: 24px 0 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 38px;
+    }
+
+    .brand, .eyebrow, .mono {
+      font-family: "Space Mono", monospace;
+      letter-spacing: .14em;
+    }
+
+    .brand {
+      color: var(--ice);
+      font-size: .65rem;
+      font-weight: 700;
+    }
+
+    .back-link {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 13px;
+      font-size: .75rem;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      color: var(--white);
+      border-color: var(--ice);
+    }
+
+    .hero {
+      text-align: center;
+      margin: 12px auto 32px;
+      max-width: 710px;
+    }
+
+    .sigil {
+      font: 5rem/.95 "Playfair Display", serif;
+      color: var(--ice);
+      text-shadow: 0 0 35px rgba(76,124,255,.45);
+      animation: float 4s ease-in-out infinite;
+      margin-bottom: 20px;
+    }
+
+    .eyebrow {
+      font-size: .62rem;
+      font-weight: 700;
+      color: var(--ice);
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font: 600 clamp(2.8rem, 8vw, 5.4rem)/.99 "Playfair Display", serif;
+      letter-spacing: -.045em;
+      margin: 17px 0;
+    }
+
+    h1 span, .highlight { color: var(--ice); }
+
+    .hero-copy {
+      max-width: 560px;
+      margin: auto;
+      color: #c4d0e2;
+      line-height: 1.8;
+    }
+
+    .pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+      border-radius: 999px;
+      padding: 8px 11px;
+      color: #c9d8f0;
+      font: 700 .57rem "Space Mono", monospace;
+      letter-spacing: .06em;
+    }
+
+    .progress-wrap { margin: 28px 0 15px; }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 9px;
+      color: var(--muted);
+      font: 700 .59rem "Space Mono", monospace;
+      letter-spacing: .07em;
+    }
+
+    .progress-track {
+      height: 5px;
+      background: #17243b;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--blue), var(--ice));
+      box-shadow: 0 0 16px rgba(169,199,255,.5);
+      transition: width .45s ease;
+    }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(23px, 5vw, 42px);
+      border: 1px solid var(--line);
+      border-radius: 27px;
+      background: linear-gradient(145deg, rgba(17,36,66,.97), rgba(5,13,27,.98));
+      box-shadow: 0 24px 80px rgba(0,0,0,.3);
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      top: -125px;
+      right: -90px;
+      border-radius: 50%;
+      background: rgba(76,124,255,.13);
+      filter: blur(14px);
+      pointer-events: none;
+    }
+
+    .room { display: none; position: relative; }
+    .room.active { display: block; animation: appear .35s ease both; }
+
+    .room-heading {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 23px;
+    }
+
+    .room-number {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(169,199,255,.38);
+      border-radius: 50%;
+      background: rgba(169,199,255,.1);
+      color: var(--ice);
+      font: 700 .8rem "Space Mono", monospace;
+    }
+
+    .room-heading small {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ice);
+      font: 700 .57rem "Space Mono", monospace;
+      letter-spacing: .12em;
+    }
+
+    h2 {
+      margin: 0;
+      font: 600 clamp(1.6rem, 5vw, 2.45rem)/1.12 "Playfair Display", serif;
+    }
+
+    .brief {
+      margin: 0 0 20px;
+      color: #c4d0e2;
+      line-height: 1.8;
+    }
+
+    .evidence {
+      margin: 19px 0;
+      padding: 21px;
+      border: 1px solid rgba(169,199,255,.16);
+      border-radius: 17px;
+      background: rgba(2,8,18,.43);
+    }
+
+    .evidence-label {
+      margin: 0 0 13px;
+      color: var(--ice);
+      font: 700 .58rem "Space Mono", monospace;
+      letter-spacing: .13em;
+    }
+
+    .cipher {
+      text-align: center;
+      color: #fff;
+      font: 700 clamp(1.3rem, 4vw, 2rem) "Space Mono", monospace;
+      letter-spacing: .08em;
+      overflow-wrap: anywhere;
+    }
+
+    .evidence-note {
+      color: #c4d0e2;
+      font-size: .87rem;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    .instructions {
+      padding-left: 21px;
+      color: #d2dced;
+      line-height: 1.9;
+    }
+
+    .answer-label {
+      display: block;
+      margin: 23px 0 9px;
+      color: var(--ice);
+      font: 700 .6rem "Space Mono", monospace;
+      letter-spacing: .1em;
+    }
+
+    .answer-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .answer-row input {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid rgba(169,199,255,.28);
+      border-radius: 13px;
+      background: #040b17;
+      padding: 14px 15px;
+      color: #fff;
+      outline: none;
+    }
+
+    .answer-row input:focus {
+      border-color: var(--ice);
+      box-shadow: 0 0 0 3px rgba(76,124,255,.15);
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 13px 17px;
+      cursor: pointer;
+      font-size: .75rem;
+      font-weight: 700;
+      transition: transform .18s, background .18s, border-color .18s;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn:disabled { cursor: default; opacity: .55; transform: none; }
+
+    .primary {
+      color: #081426;
+      background: var(--ice);
+      box-shadow: 0 8px 24px rgba(76,124,255,.16);
+    }
+
+    .secondary {
+      color: #dce7f8;
+      border-color: var(--line);
+      background: rgba(255,255,255,.04);
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 13px;
+    }
+
+    .feedback {
+      min-height: 25px;
+      margin: 13px 0 0;
+      color: var(--muted);
+      font-size: .85rem;
+      line-height: 1.6;
+    }
+
+    .feedback.good { color: var(--good); }
+    .feedback.bad { color: var(--bad); }
+
+    .hint {
+      margin-top: 15px;
+      padding: 14px 15px;
+      border-left: 2px solid var(--ice);
+      border-radius: 0 12px 12px 0;
+      background: rgba(169,199,255,.06);
+      color: #cfdbef;
+      font-size: .85rem;
+      line-height: 1.7;
+    }
+
+    .hint[hidden] { display: none; }
+
+    .hint-level {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ice);
+      font: 700 .57rem "Space Mono", monospace;
+      letter-spacing: .1em;
+    }
+
+    .key-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+
+    .key-card {
+      flex: 1;
+      min-width: 85px;
+      padding: 13px 10px;
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(169,199,255,.045);
+    }
+
+    .key-card small {
+      display: block;
+      color: var(--muted);
+      font: 700 .54rem "Space Mono", monospace;
+      margin-bottom: 8px;
+    }
+
+    .key-card strong {
+      color: var(--ice);
+      font: 700 1.65rem "Space Mono", monospace;
+    }
+
+    .key-card.locked strong { color: #65748e; }
+
+    .vault-slots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .vault-slot {
+      width: 64px;
+      height: 72px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(169,199,255,.38);
+      border-radius: 13px;
+      background: #040b17;
+      color: var(--ice);
+      font: 700 2rem "Space Mono", monospace;
+    }
+
+    .success {
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    .success .sigil { font-size: 5.5rem; }
+    .success h2 { margin: 12px 0 18px; font-size: clamp(2.2rem, 7vw, 4rem); }
+    .success p { color: #cbd7e9; line-height: 1.8; }
+
+    .final-code {
+      display: inline-block;
+      margin: 14px 0 20px;
+      padding: 14px 20px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(169,199,255,.07);
+      color: var(--ice);
+      font: 700 1rem "Space Mono", monospace;
+      letter-spacing: .15em;
+    }
+
+    .closed-label {
+      color: var(--good);
+      font: 700 .59rem "Space Mono", monospace;
+      letter-spacing: .15em;
+    }
+
+    .footer-note {
+      max-width: 600px;
+      margin: 22px auto 0;
+      text-align: center;
+      color: #8192ae;
+      font-size: .72rem;
+      line-height: 1.8;
+    }
+
+    .shake { animation: shake .25s linear; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shake {
+      25%,75% { transform: translateX(-4px); }
+      50% { transform: translateX(4px); }
+    }
+
+    @media(max-width:560px) {
+      .shell { width: calc(100% - 22px); padding-top: 17px; }
+      .topbar { align-items: flex-start; margin-bottom: 26px; }
+      .brand { font-size: .54rem; }
+      .back-link { font-size: .65rem; padding: 8px 10px; }
+      .panel { padding: 22px 17px; border-radius: 21px; }
+      .answer-row { flex-direction: column; }
+      .answer-row .btn { width: 100%; }
+      .cipher { letter-spacing: .025em; }
+      .room-heading { align-items: flex-start; }
+      .vault-slot { width: 54px; height: 62px; }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      *,*::before,*::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
 <div class="shell">
   <nav class="topbar" aria-label="Game navigation">
     <span class="brand">∞ THE INFINITY FILES</span>
-    <a class="toplink" href="../index.html">← BACK TO THE BIRTHDAY SITE</a>
+    <a class="back-link" href="../index.html">← BACK TO THE BIRTHDAY SITE</a>
   </nav>
+
   <header class="hero">
     <div class="sigil" aria-hidden="true">∞</div>
     <p class="eyebrow">CLASSIFIED · CASE 1010</p>
     <h1>The Missing <span>Infinity</span></h1>
-    <p>Four locks stand between you and the truth. Read carefully, follow the evidence, and enter the exact answer to open each door. You can ask for a hint if you get stuck.</p>
-    <div class="case-meta"><span class="pill">4 LOCKS</span><span class="pill">MEDIUM DIFFICULTY</span><span class="pill">NO TIMER</span></div>
+    <p class="hero-copy">
+      Four locks protect the Infinity File. Every answer reveals a key.
+      Read the evidence, question your assumptions, and save what you discover.
+      The final vault needs all three keys.
+    </p>
+    <div class="pills">
+      <span class="pill">4 ROOMS</span>
+      <span class="pill">HARD MODE</span>
+      <span class="pill">NO TIMER</span>
+      <span class="pill">PROGRESS SAVED</span>
+    </div>
   </header>
-  <div class="progress-wrap" aria-label="Case progress">
-    <div class="progress-label"><span id="progressText">LOCK 01 OF 04</span><span id="progressPercent">0% COMPLETE</span></div>
-    <div class="progress"><span id="progressBar"></span></div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span id="progressText">ROOM 01 OF 04</span>
+      <span id="progressPercent">0% COMPLETE</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressBar"></div>
+    </div>
   </div>
+
   <main class="panel" id="casePanel">
-    <section class="step active" data-step="0" aria-labelledby="title0">
-      <div class="lock-head"><div class="lock-num">01</div><div><small>THE SUBSTITUTION LOCK</small><h2 id="title0">The alphabet has shifted.</h2></div></div>
-      <p class="brief">A note was left behind in the first room. The numbers are not random. Each one points to a letter in the alphabet: A = 1, B = 2, C = 3, and so on.</p>
-      <div class="clue-box"><p class="clue-label">EVIDENCE A · RECOVER THE WORD</p><div class="cipher">9 - 14 - 6 - 9 - 14 - 9 - 20 - 25</div></div>
-      <p class="brief">Decode the sequence. The word describes a shape with no beginning and no end.</p>
-      <label class="input-label" for="answer0">ENTER THE WORD</label><div class="answer-row"><input id="answer0" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="feedback0" placeholder="Your answer…"><button class="btn btn-primary submit" data-submit="0">UNLOCK DOOR 01 ↗</button></div>
-      <div class="feedback" id="feedback0" role="status" aria-live="polite"></div>
-      <div class="btn-row"><button class="btn btn-secondary hint-btn" data-hint="0">REVEAL A HINT</button></div><div class="hint" id="hint0" hidden>Convert every number to its alphabet position. For example, 9 = I and 14 = N.</div>
+
+    <!-- ROOM 01 -->
+    <section class="room active" data-room="0">
+      <div class="room-heading">
+        <div class="room-number">01</div>
+        <div>
+          <small>THE CIPHER CHAMBER</small>
+          <h2>The alphabet has shifted.</h2>
+        </div>
+      </div>
+
+      <p class="brief">
+        A damaged transmission was found behind the first door.
+        Someone shifted every letter forward by the same number of places.
+        Your job is to reverse the shift and recover the word.
+      </p>
+
+      <div class="evidence">
+        <p class="evidence-label">EVIDENCE A · INTERCEPTED TRANSMISSION</p>
+        <div class="cipher">VHYHQ</div>
+        <p class="evidence-note">
+          The alphabet wraps around at the end. To undo a forward shift,
+          move backwards through the alphabet.
+        </p>
+      </div>
+
+      <p class="brief">
+        Decode the five-letter message. The answer will reveal your first key.
+      </p>
+
+      <label class="answer-label" for="answer0">ENTER THE DECODED WORD</label>
+      <div class="answer-row">
+        <input id="answer0" autocomplete="off" spellcheck="false" placeholder="Decoded word">
+        <button class="btn primary submit" data-index="0">UNLOCK ROOM 01 ↗</button>
+      </div>
+      <p class="feedback" id="feedback0" role="status" aria-live="polite"></p>
+
+      <div class="button-row">
+        <button class="btn secondary hint-btn" data-index="0">REVEAL HINT 1</button>
+      </div>
+      <div class="hint" id="hint0" hidden></div>
     </section>
-    <section class="step" data-step="1" aria-labelledby="title1">
-      <div class="lock-head"><div class="lock-num">02</div><div><small>THE DATE LOCK</small><h2 id="title1">A date is the key.</h2></div></div>
-      <p class="brief">The second door doesn't want a word. It wants the date when the story officially became “us”. Ignore the year and enter the day followed by the month.</p>
-      <div class="clue-box"><p class="clue-label">EVIDENCE B · FORMAT DDMM</p><p>Four digits. No dots, slashes, or spaces. The day comes first.</p><div class="cipher">14 MARCH</div></div>
-      <label class="input-label" for="answer1">ENTER FOUR DIGITS</label><div class="answer-row"><input id="answer1" inputmode="numeric" maxlength="4" autocomplete="off" aria-describedby="feedback1" placeholder="DDMM"><button class="btn btn-primary submit" data-submit="1">UNLOCK DOOR 02 ↗</button></div>
-      <div class="feedback" id="feedback1" role="status" aria-live="polite"></div>
-      <div class="btn-row"><button class="btn btn-secondary hint-btn" data-hint="1">REVEAL A HINT</button></div><div class="hint" id="hint1" hidden>Write the day first (14), then the month number for March (03).</div>
+
+    <!-- ROOM 02 -->
+    <section class="room" data-room="1">
+      <div class="room-heading">
+        <div class="room-number">02</div>
+        <div>
+          <small>THE FROZEN GRID</small>
+          <h2>Coordinates don't lie.</h2>
+        </div>
+      </div>
+
+      <p class="brief">
+        The second lock uses a five-by-five alphabet grid. Each pair identifies
+        a letter by its row and column. The first digit is the row; the second
+        is the column. The alphabet is written from left to right, row by row,
+        with I and J sharing one square.
+      </p>
+
+      <div class="evidence">
+        <p class="evidence-label">EVIDENCE B · RECOVERED COORDINATES</p>
+        <div class="cipher">32 · 24 · 22 · 23 · 44</div>
+        <p class="evidence-note">
+          Grid reference: rows and columns are numbered 1 to 5.
+          Use the standard alphabet order, combining I/J in the same cell.
+        </p>
+      </div>
+
+      <p class="brief">
+        Decode all five pairs to discover a word. Count its letters to obtain
+        your second numerical key.
+      </p>
+
+      <label class="answer-label" for="answer1">ENTER THE DECODED WORD</label>
+      <div class="answer-row">
+        <input id="answer1" autocomplete="off" spellcheck="false" placeholder="Decoded word">
+        <button class="btn primary submit" data-index="1">UNLOCK ROOM 02 ↗</button>
+      </div>
+      <p class="feedback" id="feedback1" role="status" aria-live="polite"></p>
+
+      <div class="button-row">
+        <button class="btn secondary hint-btn" data-index="1">REVEAL HINT 1</button>
+      </div>
+      <div class="hint" id="hint1" hidden></div>
     </section>
-    <section class="step" data-step="2" aria-labelledby="title2">
-      <div class="lock-head"><div class="lock-num">03</div><div><small>THE MEMORY LOCK</small><h2 id="title2">Find the place in the evidence.</h2></div></div>
-      <p class="brief">The file describes a day away from the usual routine: work was skipped, a movie happened, and the beach became part of the memory. The location is hidden in plain sight.</p>
-      <div class="clue-box"><p class="clue-label">EVIDENCE C · LOCATION REPORT</p><ul class="clue-list"><li>A coastal getaway not too far from Mumbai.</li><li>A movie date and a beach date in the same adventure.</li><li>The first office-bunk day together.</li></ul></div>
-      <label class="input-label" for="answer2">ENTER THE PLACE</label><div class="answer-row"><input id="answer2" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="feedback2" placeholder="Location name…"><button class="btn btn-primary submit" data-submit="2">UNLOCK DOOR 03 ↗</button></div>
-      <div class="feedback" id="feedback2" role="status" aria-live="polite"></div>
-      <div class="btn-row"><button class="btn btn-secondary hint-btn" data-hint="2">REVEAL A HINT</button></div><div class="hint" id="hint2" hidden>The place starts with A and ends with “aug”. It has seven letters.</div>
+
+    <!-- ROOM 03 -->
+    <section class="room" data-room="2">
+      <div class="room-heading">
+        <div class="room-number">03</div>
+        <div>
+          <small>THE PATTERN VAULT</small>
+          <h2>Three records. Three missing numbers.</h2>
+        </div>
+      </div>
+
+      <p class="brief">
+        Each record follows a different mathematical rule. Find the missing
+        term in every sequence. Then use the calculation instruction to turn
+        all three results into one final digit.
+      </p>
+
+      <div class="evidence">
+        <p class="evidence-label">EVIDENCE C · INCOMPLETE RECORDS</p>
+        <p class="brief"><strong>RECORD A</strong></p>
+        <div class="cipher">2, 6, 12, 20, 30, ?</div>
+
+        <p class="brief" style="margin-top:22px"><strong>RECORD B</strong></p>
+        <div class="cipher">1, 1, 2, 3, 5, 8, ?</div>
+
+        <p class="brief" style="margin-top:22px"><strong>RECORD C</strong></p>
+        <div class="cipher">81, 27, 9, 3, ?</div>
+      </div>
+
+      <div class="evidence">
+        <p class="evidence-label">CALCULATION INSTRUCTION</p>
+        <p class="evidence-note">
+          First, find the three missing terms. Add together every digit
+          appearing in those three answers. If the total has more than one
+          digit, add its digits together again until only one digit remains.
+          That single digit is your third key.
+        </p>
+      </div>
+
+      <p class="brief">
+        Enter the three missing terms in order, separated by hyphens.
+        Example format: <span class="highlight">12-34-5</span>
+      </p>
+
+      <label class="answer-label" for="answer2">ENTER THE THREE MISSING TERMS</label>
+      <div class="answer-row">
+        <input id="answer2" autocomplete="off" inputmode="numeric" placeholder="Number-Number-Number">
+        <button class="btn primary submit" data-index="2">UNLOCK ROOM 03 ↗</button>
+      </div>
+      <p class="feedback" id="feedback2" role="status" aria-live="polite"></p>
+
+      <div class="button-row">
+        <button class="btn secondary hint-btn" data-index="2">REVEAL HINT 1</button>
+      </div>
+      <div class="hint" id="hint2" hidden></div>
     </section>
-    <section class="step" data-step="3" aria-labelledby="title3">
-      <div class="lock-head"><div class="lock-num">04</div><div><small>THE FINAL VAULT</small><h2 id="title3">The last code is hiding in the case number.</h2></div></div>
-      <p class="brief">Every case file has a number for a reason. This one was marked <strong>1010</strong> from the very beginning. Enter the four digits to open the final vault.</p>
-      <div class="clue-box"><p class="clue-label">EVIDENCE D · CASE NUMBER</p><div class="cipher">CASE 10 · 10</div><p>Combine the repeated number. No punctuation.</p></div>
-      <label class="input-label" for="answer3">ENTER THE FINAL CODE</label><div class="answer-row"><input id="answer3" inputmode="numeric" maxlength="4" autocomplete="off" aria-describedby="feedback3" placeholder="••••"><button class="btn btn-primary submit" data-submit="3">OPEN THE FINAL VAULT ↗</button></div>
-      <div class="feedback" id="feedback3" role="status" aria-live="polite"></div>
-      <div class="btn-row"><button class="btn btn-secondary hint-btn" data-hint="3">REVEAL A HINT</button></div><div class="hint" id="hint3" hidden>The digits are already in the case number at the top of this file.</div>
+
+    <!-- ROOM 04 -->
+    <section class="room" data-room="3">
+      <div class="room-heading">
+        <div class="room-number">04</div>
+        <div>
+          <small>THE INFINITY VAULT</small>
+          <h2>The keys are correct. Their order is not.</h2>
+        </div>
+      </div>
+
+      <p class="brief">
+        You have recovered three keys from the earlier rooms.
+        The vault needs all three digits, but entering them in discovery order
+        will not work. Read the final instruction carefully.
+      </p>
+
+      <div class="key-row" id="keyRow">
+        <div class="key-card locked" id="keyCard0">
+          <small>ROOM 01</small><strong>?</strong>
+        </div>
+        <div class="key-card locked" id="keyCard1">
+          <small>ROOM 02</small><strong>?</strong>
+        </div>
+        <div class="key-card locked" id="keyCard2">
+          <small>ROOM 03</small><strong>?</strong>
+        </div>
+      </div>
+
+      <div class="evidence">
+        <p class="evidence-label">EVIDENCE D · FINAL ORDERING RULE</p>
+        <ol class="instructions">
+          <li>The smallest key belongs in the middle.</li>
+          <li>The largest key goes at the end.</li>
+          <li>The remaining key starts the sequence.</li>
+        </ol>
+        <p class="evidence-note">
+          Use every key exactly once. The vault accepts a three-digit
+          sequence, not a word.
+        </p>
+      </div>
+
+      <label class="answer-label" for="answer3">ENTER THE FINAL THREE-DIGIT CODE</label>
+      <div class="answer-row">
+        <input id="answer3" inputmode="numeric" maxlength="3" autocomplete="off" placeholder="•••">
+        <button class="btn primary submit" data-index="3">OPEN THE VAULT ↗</button>
+      </div>
+      <p class="feedback" id="feedback3" role="status" aria-live="polite"></p>
+
+      <div class="button-row">
+        <button class="btn secondary hint-btn" data-index="3">REVEAL HINT 1</button>
+      </div>
+      <div class="hint" id="hint3" hidden></div>
     </section>
-    <section class="step" data-step="4" aria-labelledby="successTitle">
-      <div class="success"><div class="sigil" aria-hidden="true">∞</div><p class="case-closed">ALL FOUR LOCKS OPEN · CASE CLOSED</p><h2 id="successTitle">You found the <span>infinity.</span></h2><p>The evidence was never about a missing object. It was about a thousand little moments, a few impossible plot twists, and the kind of story that keeps finding its way back.</p><p><strong>The final answer was us all along. ♡</strong></p><div class="final-code">YOU + ME = ∞</div><div class="btn-row" style="justify-content:center"><a class="btn btn-primary" href="../index.html">RETURN TO OUR STORY ♡</a><button class="btn btn-secondary" id="restart">PLAY THE CASE AGAIN ↻</button></div></div>
+
+    <!-- FINAL REVEAL -->
+    <section class="room" data-room="4">
+      <div class="success">
+        <div class="sigil" aria-hidden="true">∞</div>
+        <p class="closed-label">ALL FOUR LOCKS OPEN · CASE CLOSED</p>
+        <h2>You found the <span class="highlight">infinity.</span></h2>
+        <p>
+          The vault was never protecting a missing object.
+          It was protecting a reminder that the best things are rarely solved
+          in one glance. Sometimes you have to look closer, think differently,
+          and keep going until the pieces make sense.
+        </p>
+        <p><strong>The final answer was us all along. ♡</strong></p>
+        <div class="final-code">YOU + ME = ∞</div>
+        <div class="button-row" style="justify-content:center">
+          <a class="btn primary" href="../index.html" style="text-decoration:none">RETURN TO OUR STORY ♡</a>
+          <button class="btn secondary" id="restart">PLAY AGAIN ↻</button>
+        </div>
+      </div>
     </section>
+
   </main>
-  <p class="footer-note">FIELD NOTE: Take your time. There is no countdown, no penalty for using hints, and no wrong turn that cannot be retried.<br>Made with love, and a suspicious amount of infinity. ♡</p>
+
+  <p class="footer-note">
+    FIELD NOTE: Take your time. Hints are available in stages, and wrong
+    answers never erase your progress.<br>
+    Made with love, and a suspicious amount of infinity. ♡
+  </p>
 </div>
+
 <script>
 (() => {
   'use strict';
-  const answers = ['infinity', '1403', 'alibaug', '1010'];
-  const steps = [...document.querySelectorAll('.step')];
+
+  const SAVE_KEY = 'missingInfinityEscape_v2';
+
+  const answers = [
+    'seven',
+    'night',
+    '42-13-1',
+    '527'
+  ];
+
+  const hints = [
+    [
+      'Look at the first letter. V is three places after S.',
+      'Every letter was shifted forward by three. Reverse that shift.',
+      'Move each letter in VHYHQ three places backwards. The result is SEVEN.'
+    ],
+    [
+      'Read each pair as row first, column second.',
+      'The first pair is 32. Find row 3, column 2 in the grid.',
+      'The decoded word is NIGHT. It has five letters.'
+    ],
+    [
+      'Record A has differences that increase by two each time.',
+      'Record B adds its previous two terms. Record C divides by three.',
+      'The missing terms are 42, 13, and 1. Add their digits: 4+2+1+3+1 = 11, then 1+1 = 2.'
+    ],
+    [
+      'Your three keys are 7, 5, and 2. Sort them by size.',
+      'Put 2 in the middle. Put 7 at the end.',
+      'The remaining digit 5 starts the sequence. The code is 527.'
+    ]
+  ];
+
+  const rooms = [...document.querySelectorAll('.room')];
   const progressBar = document.getElementById('progressBar');
   const progressText = document.getElementById('progressText');
   const progressPercent = document.getElementById('progressPercent');
-  let current = 0;
-  const normalize = value => value.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
-  function updateProgress(done) {
-    const pct = Math.round((done / 4) * 100);
-    progressBar.style.width = pct + '%';
-    progressPercent.textContent = pct + '% COMPLETE';
-    progressText.textContent = done === 4 ? 'CASE CLOSED' : `LOCK ${String(done + 1).padStart(2, '0')} OF 04`;
-  }
-  function showStep(index) {
-    current = index;
-    steps.forEach((step, i) => step.classList.toggle('active', i === index));
-    updateProgress(index);
-    if (index < 4) {
-      const input = document.getElementById(`answer${index}`);
-      if (input) setTimeout(() => input.focus({ preventScroll: true }), 120);
+  const panel = document.getElementById('casePanel');
+
+  let state = {
+    solved: [false, false, false, false],
+    hints: [0, 0, 0, 0],
+    current: 0
+  };
+
+  function loadState() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(SAVE_KEY));
+      if (!saved || !Array.isArray(saved.solved) || !Array.isArray(saved.hints)) return;
+
+      state.solved = [0,1,2,3].map(i => saved.solved[i] === true);
+      state.hints = [0,1,2,3].map(i => {
+        const n = Number(saved.hints[i]) || 0;
+        return Math.max(0, Math.min(3, n));
+      });
+
+      const firstUnsolved = state.solved.findIndex(v => !v);
+      state.current = firstUnsolved === -1
+        ? 4
+        : Math.min(Number(saved.current) || firstUnsolved, firstUnsolved);
+    } catch (_) {
+      // If storage is unavailable or corrupted, start a fresh game.
     }
-    document.getElementById('casePanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+
+  function saveState() {
+    try {
+      localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+    } catch (_) {
+      // The game still works for this session if storage is unavailable.
+    }
+  }
+
+  function keys() {
+    return [
+      state.solved[0] ? '7' : '?',
+      state.solved[1] ? '5' : '?',
+      state.solved[2] ? '2' : '?'
+    ];
+  }
+
+  function updateVaultKeys() {
+    const values = keys();
+    values.forEach((value, i) => {
+      const card = document.getElementById('keyCard' + i);
+      card.querySelector('strong').textContent = value;
+      card.classList.toggle('locked', value === '?');
+    });
+  }
+
+  function updateProgress() {
+    const completed = state.solved.filter(Boolean).length;
+    const percent = Math.round(completed / 4 * 100);
+
+    progressBar.style.width = percent + '%';
+    progressPercent.textContent = percent + '% COMPLETE';
+    progressText.textContent = completed === 4
+      ? 'CASE CLOSED'
+      : 'ROOM ' + String(Math.min(state.current + 1, 4)).padStart(2, '0') + ' OF 04';
+
+    updateVaultKeys();
+  }
+
+  function showRoom(index) {
+    state.current = index;
+    rooms.forEach((room, i) => room.classList.toggle('active', i === index));
+    updateProgress();
+    saveState();
+
+    if (index < 4) {
+      const input = document.getElementById('answer' + index);
+      if (input && !state.solved[index]) {
+        setTimeout(() => input.focus({ preventScroll: true }), 120);
+      }
+    }
+
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function normalize(value, index) {
+    const text = value.trim().toLowerCase();
+
+    if (index === 2) {
+      return text.replace(/\s+/g, '').replace(/–|—/g, '-');
+    }
+
+    return text.replace(/[^a-z0-9]/g, '');
+  }
+
+  function setFeedback(index, message, type) {
+    const feedback = document.getElementById('feedback' + index);
+    feedback.textContent = message;
+    feedback.className = 'feedback ' + (type || '');
+  }
+
   function checkAnswer(index) {
-    const input = document.getElementById(`answer${index}`);
-    const feedback = document.getElementById(`feedback${index}`);
-    const typed = normalize(input.value);
+    if (state.solved[index]) return;
+
+    const input = document.getElementById('answer' + index);
+    const typed = normalize(input.value, index);
+
     if (!typed) {
-      feedback.textContent = 'Detective, enter an answer before trying the lock.';
-      feedback.className = 'feedback bad';
+      setFeedback(index, 'Enter an answer before trying the lock.', 'bad');
       input.focus();
       return;
     }
-    if (typed === answers[index]) {
-      feedback.textContent = index === 3 ? 'Vault accepted. Preparing final reveal…' : 'Correct. Lock disengaged. The next clue is ready.';
-      feedback.className = 'feedback good';
-      input.disabled = true;
-      input.parentElement.querySelector('button').disabled = true;
-      input.parentElement.querySelector('button').style.opacity = '.55';
-      setTimeout(() => showStep(index + 1), 650);
-    } else {
-      feedback.textContent = 'That did not open the lock. Recheck the evidence, or reveal a hint.';
-      feedback.className = 'feedback bad';
-      const panel = document.getElementById('casePanel');
+
+    if (typed !== answers[index]) {
+      setFeedback(index, 'The lock is still sealed. Recheck the evidence or reveal a hint.', 'bad');
       panel.classList.remove('shake');
       void panel.offsetWidth;
       panel.classList.add('shake');
       input.select();
+      return;
     }
+
+    state.solved[index] = true;
+    saveState();
+
+    input.disabled = true;
+    input.parentElement.querySelector('button').disabled = true;
+
+    const successMessages = [
+      'Correct. The cipher breaks. Key recovered: 7.',
+      'Correct. The coordinates resolve. Key recovered: 5.',
+      'Correct. The sequences align. Key recovered: 2.',
+      'Access granted. The final vault is opening…'
+    ];
+
+    setFeedback(index, successMessages[index], 'good');
+    updateProgress();
+
+    setTimeout(() => {
+      if (index === 3) {
+        showRoom(4);
+      } else {
+        showRoom(index + 1);
+      }
+    }, 800);
   }
-  document.querySelectorAll('.submit').forEach(button => button.addEventListener('click', () => checkAnswer(Number(button.dataset.submit))));
-  document.querySelectorAll('input').forEach(input => input.addEventListener('keydown', event => {
-    if (event.key === 'Enter') {
-      const index = Number(input.id.replace('answer', ''));
-      if (Number.isInteger(index) && index >= 0 && index < 4) checkAnswer(index);
+
+  function renderHint(index) {
+    const hint = document.getElementById('hint' + index);
+    const button = document.querySelector('.hint-btn[data-index="' + index + '"]');
+    const level = state.hints[index];
+
+    if (level === 0) {
+      hint.hidden = true;
+      button.textContent = 'REVEAL HINT 1';
+      return;
     }
-  }));
-  document.querySelectorAll('.hint-btn').forEach(button => button.addEventListener('click', () => {
-    const hint = document.getElementById(`hint${button.dataset.hint}`);
-    const opening = hint.hidden;
-    hint.hidden = !opening;
-    button.textContent = opening ? 'HIDE THE HINT' : 'REVEAL A HINT';
-  }));
+
+    hint.hidden = false;
+    hint.innerHTML = '<span class="hint-level">HINT ' + level + ' OF 3</span>';
+    hint.append(document.createTextNode(hints[index][level - 1]));
+
+    button.textContent = level >= 3 ? 'ALL HINTS REVEALED' : 'REVEAL HINT ' + (level + 1);
+    button.disabled = level >= 3;
+  }
+
+  document.querySelectorAll('.submit').forEach(button => {
+    button.addEventListener('click', () => checkAnswer(Number(button.dataset.index)));
+  });
+
+  document.querySelectorAll('.answer-row input').forEach(input => {
+    input.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        checkAnswer(Number(input.id.replace('answer', '')));
+      }
+    });
+  });
+
+  document.querySelectorAll('.hint-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const index = Number(button.dataset.index);
+      if (state.hints[index] >= 3) return;
+
+      state.hints[index]++;
+      renderHint(index);
+      saveState();
+    });
+  });
+
   document.getElementById('restart').addEventListener('click', () => {
+    state = {
+      solved: [false, false, false, false],
+      hints: [0, 0, 0, 0],
+      current: 0
+    };
+
     for (let i = 0; i < 4; i++) {
-      const input = document.getElementById(`answer${i}`);
+      const input = document.getElementById('answer' + i);
       input.value = '';
       input.disabled = false;
       input.parentElement.querySelector('button').disabled = false;
-      input.parentElement.querySelector('button').style.opacity = '';
-      const feedback = document.getElementById(`feedback${i}`);
-      feedback.textContent = '';
-      feedback.className = 'feedback';
-      document.getElementById(`hint${i}`).hidden = true;
-      document.querySelector(`.hint-btn[data-hint="${i}"]`).textContent = 'REVEAL A HINT';
+
+      setFeedback(i, '', '');
+
+      renderHint(i);
     }
-    showStep(0);
+
+    saveState();
+    showRoom(0);
   });
-  updateProgress(0);
+
+  loadState();
+
+  for (let i = 0; i < 4; i++) {
+    if (state.solved[i]) {
+      const input = document.getElementById('answer' + i);
+      input.disabled = true;
+      input.parentElement.querySelector('button').disabled = true;
+      setFeedback(i, 'Room solved. Key recovered.', 'good');
+    }
+    renderHint(i);
+  }
+
+  updateProgress();
+  showRoom(state.current);
 })();
 </script>
 </body>
