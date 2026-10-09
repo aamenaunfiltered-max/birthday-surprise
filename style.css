@@ -94,7 +94,7 @@ button{font:inherit}
 @media(max-width:900px){.vault-grid{grid-template-columns:repeat(3,1fr)}.photo-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:720px){.vault-grid{grid-template-columns:repeat(2,1fr)}.photo-grid{grid-template-columns:repeat(2,1fr)}.coke-stats{grid-template-columns:1fr}.coke-stamp{right:0;bottom:5px}.infinity-portal span{font-size:5.8rem}}
 
-/* TECH Ã— SCHBANG origin chapter */
+/* TECH Ãƒâ€” SCHBANG origin chapter */
 .tech-schbang-lockup{display:flex;align-items:center;justify-content:center;gap:14px;font:700 clamp(1.5rem,5vw,3.7rem)/1 'Space Mono',monospace;letter-spacing:-.08em;margin:8px 0 22px;color:var(--navy)}
 .tech-schbang-lockup b{font:500 1.15em 'Playfair Display',serif;color:var(--blue);transition:.35s transform,.35s text-shadow}
 .tech-schbang-lockup.lit b{transform:scale(1.25) rotate(8deg);text-shadow:0 0 28px rgba(76,124,255,.65)}
@@ -323,7 +323,7 @@ button{font:inherit}
 .lock-screen .countdown-shell{animation:lockFade 1.25s .2s ease both}
 .lock-screen .unlock-date,.lock-screen .lock-note{animation:lockFade 1.3s .3s ease both}
 .lock-screen .countdown strong{text-shadow:0 0 0 rgba(76,124,255,0);animation:countdownGlow 2.8s ease-in-out infinite}
-.lock-screen .lock-stars:before,.lock-screen .lock-stars:after{content:"âœ¦   Â·      âœ§        Â·   âœ¦      Â·        âœ§";position:absolute;inset:12% 4%;color:rgba(76,124,255,.18);font-size:1.2rem;letter-spacing:3.5rem;line-height:5rem;white-space:pre-wrap;animation:starsDrift 12s ease-in-out infinite alternate}
+.lock-screen .lock-stars:before,.lock-screen .lock-stars:after{content:"Ã¢Å“Â¦   Ã‚Â·      Ã¢Å“Â§        Ã‚Â·   Ã¢Å“Â¦      Ã‚Â·        Ã¢Å“Â§";position:absolute;inset:12% 4%;color:rgba(76,124,255,.18);font-size:1.2rem;letter-spacing:3.5rem;line-height:5rem;white-space:pre-wrap;animation:starsDrift 12s ease-in-out infinite alternate}
 .lock-screen .lock-stars:after{inset:auto 8% 12% 8%;color:rgba(169,199,255,.28);animation-duration:17s;animation-direction:alternate-reverse}
 @keyframes lockContentIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes lockFade{from{opacity:0}to{opacity:1}}
@@ -501,7 +501,7 @@ button{font:inherit}
   min-height:240px;
 }
 .scrap-card-missing figcaption::after{
-  content:' Â· PHOTO COULD NOT LOAD';
+  content:' Ã‚Â· PHOTO COULD NOT LOAD';
   color:#b44755;
 }
 
@@ -861,3 +861,33 @@ button{font:inherit}
   .final-story-beat{min-height:135px}
   .letter-intro-reveal{font-size:.5rem}
 }
+
+/* The Missing Infinity side quest link */
+.mystery-link{
+  width:min(560px,100%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:9px;
+  margin:28px auto 0;
+  padding:24px clamp(18px,4vw,32px);
+  border:1px solid rgba(169,199,255,.28);
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(76,124,255,.12));
+  color:#fff;
+  text-decoration:none;
+  box-shadow:0 16px 42px rgba(0,0,0,.2);
+  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+}
+.mystery-link:hover,.mystery-link:focus-visible{
+  transform:translateY(-4px);
+  border-color:rgba(169,199,255,.7);
+  box-shadow:0 20px 50px rgba(0,0,0,.28);
+  outline:none;
+}
+.mystery-link-kicker{font:700 .58rem 'Space Mono',monospace;letter-spacing:.16em;color:#a9c7ff}
+.mystery-link strong{font:600 clamp(1.25rem,4vw,2rem)/1.2 'Playfair Display',serif;letter-spacing:.01em}
+.mystery-link strong span{display:inline-block;color:#a9c7ff;transition:transform .22s ease}
+.mystery-link:hover strong span{transform:translate(3px,-3px)}
+.mystery-link small{font-size:.85rem;line-height:1.6;color:#dbe5f5}
+@media(max-width:520px){.mystery-link{padding:20px 16px}.mystery-link small{font-size:.78rem}}
